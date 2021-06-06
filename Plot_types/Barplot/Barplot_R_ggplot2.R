@@ -36,6 +36,8 @@ df_plot$level[which(is.na(df_plot$level))] = "NA"
 df_plot$level = factor(x = df_plot$level,
                        levels = c(unique(df_plot$level)[unique(df_plot$level) != "NA"],
                                   "NA"))
+
+# Relative frequency:
 df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
                                 digits = 3), "%")
 
