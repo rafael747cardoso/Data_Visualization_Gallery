@@ -32,23 +32,31 @@ df_plot = pd.DataFrame({"level": levels,
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
                                        "freq": df[cat_var].isna().sum()}),
                         sort = False)
+df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
 df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in df_plot["freq"]]
 
 # Plot:
+n_levels = df_plot.shape[0]
 cmap = mpl.colors.LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 fig, ax = plt.subplots(figsize = (20, 10))
 _ = ax.bar(
-    x = df_plot["level"],
+    x = df_plot["level"].tolist(),
     height = df_plot["freq"],
-    color = [cmap(i) for i in np.array(range(1, df_plot.shape[0]))/10]    
+    color = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 )
-_ = ax.text(
-    x = df_plot["level"],
-    y = df_plot["freq"] + 0.1*max(df_plot["freq"]),
-    s = df_plot["freq_rel"].values
-)
+ind = 0
+for p in ax.patches:
+    width = p.get_width()
+    height = p.get_height()
+    x, y = p.get_xy() 
+    ax.annotate(
+        text = f'{df_plot["freq_rel"][ind]}',
+        xy = (x + width/2, y + height*1.02),
+        ha = "center"
+    )
+    ind += 1
 _ = ax.set_xlabel(cat_var_name)
 _ = ax.set_ylabel("Frequency")
 _ = ax.set_yscale("log")
