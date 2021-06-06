@@ -40,7 +40,8 @@ df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in 
 # Plot:
 n_levels = df_plot.shape[0]
 cmap = mpl.colors.LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
-fig, ax = plt.subplots(figsize = (20, 10))
+fig, ax = plt.subplots(figsize = (20, 10),
+                       tight_layout = True)
 _ = ax.bar(
     x = df_plot["level"].tolist(),
     height = df_plot["freq"],
@@ -53,12 +54,18 @@ for p in ax.patches:
     x, y = p.get_xy() 
     ax.annotate(
         text = f'{df_plot["freq_rel"][ind]}',
-        xy = (x + width/2, y + height*1.02),
-        ha = "center"
+        xy = (x + width/2, y + height*1.03),
+        ha = "center",
+        color = [cmap(i/n_levels) for i in np.array(range(n_levels))][ind]
     )
     ind += 1
-_ = ax.set_xlabel(cat_var_name)
-_ = ax.set_ylabel("Frequency")
 _ = ax.set_yscale("log")
+_ = ax.set_xlabel(cat_var_name,
+                  fontsize = 16)
+_ = ax.set_ylabel("Frequency",
+                  fontsize = 16)
+_ = plt.xticks(fontsize = 14,
+               rotation = 20)
+_ = plt.yticks(fontsize = 14)
 
 
