@@ -9,6 +9,7 @@ import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
+# Display options:
 pd.set_option("display.width", 1200)
 pd.set_option("display.max_columns", 300)
 pd.set_option("display.max_rows", 300)
