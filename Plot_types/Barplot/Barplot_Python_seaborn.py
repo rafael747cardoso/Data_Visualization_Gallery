@@ -7,8 +7,8 @@ path_plot = "Plot_types/Barplot/"
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
 # Display options:
 pd.set_option("display.width", 1200)
@@ -41,7 +41,7 @@ df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in 
 
 # Plot:
 n_levels = df_plot.shape[0]
-cmap = mpl.colors.LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
+cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 fig = plt.figure(figsize = (20, 10),
                  tight_layout = True)
 ax = sns.barplot(
