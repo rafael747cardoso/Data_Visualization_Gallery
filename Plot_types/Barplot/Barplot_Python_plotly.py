@@ -53,13 +53,8 @@ fig = px.bar(
 )
 fig.update_traces(
     textposition = "outside",
-    textfont_color = my_palette[n_levels//2]
-    # hovertemplate = "<br>".join([
-    #     "label: %{customdata[0]}",
-    #     "width: %{width}",
-    #     "height: %{y}",
-    #     "area: %{customdata[1]}",
-    # ])
+    textfont_color = my_palette[n_levels//2],
+    hovertemplate = "<b>Frequency: %{y:,}</b><extra></extra>"
 )
 fig.update_layout(
     xaxis_title = "<b>" + cat_var_name + "</b>" ,
@@ -69,11 +64,11 @@ fig.update_layout(
         size = 18
     ),
     showlegend = False,
-    plot_bgcolor = "white"
+    plot_bgcolor = "white",
+    hoverlabel = dict(
+        font_size = 18,
+        font_family = "Rockwell"
+    )
 )
 fig.show()
-
-
-
-
 
