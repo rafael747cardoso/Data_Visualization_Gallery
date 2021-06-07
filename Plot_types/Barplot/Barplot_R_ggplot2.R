@@ -42,6 +42,7 @@ df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
                                 digits = 3), "%")
 
 # Plot:
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 p = ggplot(data = df_plot) + 
     geom_bar(
         aes(
@@ -55,9 +56,10 @@ p = ggplot(data = df_plot) +
     geom_text(aes(x = level, 
                   y = freq, 
                   label = freq_rel),
+              color = my_palette(3)[2],
               vjust = -0.2) +
     scale_fill_manual(
-        values = colorRampPalette(c("#111539", "#97A1D9"))(nrow(df_plot))
+        values = my_palette(nrow(df_plot))
     ) +
     theme(
         axis.text.x = element_text(

@@ -7,7 +7,9 @@ path_plot = "Plot_types/Barplot/"
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap, Normalize
+from matplotlib.colorbar import ColorbarBase
+import matplotlib.gridspec as gridspec
 
 # Display options:
 pd.set_option("display.width", 1200)
@@ -41,12 +43,13 @@ df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in 
 # Plot:
 n_levels = df_plot.shape[0]
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
+my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 fig, ax = plt.subplots(figsize = (20, 10),
                        tight_layout = True)
 _ = ax.bar(
     x = df_plot["level"].tolist(),
     height = df_plot["freq"],
-    color = [cmap(i/n_levels) for i in np.array(range(n_levels))]
+    color = my_palette
 )
 ind = 0
 for p in ax.patches:
@@ -57,7 +60,7 @@ for p in ax.patches:
         text = f'{df_plot["freq_rel"][ind]}',
         xy = (x + width/2, y + height*1.03),
         ha = "center",
-        color = [cmap(i/n_levels) for i in np.array(range(n_levels))][ind]
+        color = my_palette[n_levels//2]
     )
     ind += 1
 _ = ax.set_yscale("log")

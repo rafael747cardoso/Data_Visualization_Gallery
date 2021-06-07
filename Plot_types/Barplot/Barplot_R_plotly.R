@@ -42,6 +42,7 @@ df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
                                 digits = 3), "%")
 
 # Plot:
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 plot_ly(
     data = df_plot,
     x = ~level,
@@ -50,9 +51,10 @@ plot_ly(
     text = ~freq_rel,
     texttemplate = "%{text}",
     textposition = "outside",
-    textfont = list(size = 18),
+    textfont = list(size = 18,
+                    color = my_palette(3)[2]),
     color = ~level,
-    colors = colorRampPalette(c("#111539", "#97A1D9"))(nrow(df_plot)),
+    colors = my_palette(nrow(df_plot)),
     hovertemplate = "<b>Frequency: %{y:,}</b><extra></extra>"
 ) %>%
     layout(

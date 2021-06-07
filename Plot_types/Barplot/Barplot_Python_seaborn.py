@@ -42,6 +42,7 @@ df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in 
 # Plot:
 n_levels = df_plot.shape[0]
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
+my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 fig = plt.figure(figsize = (20, 10),
                  tight_layout = True)
 ax = sns.barplot(
@@ -50,7 +51,7 @@ ax = sns.barplot(
     y = "freq",
     color = "level",
     dodge = False,
-    palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
+    palette = my_palette
 )
 ind = 0
 for p in ax.patches:
@@ -61,7 +62,7 @@ for p in ax.patches:
         text = f'{df_plot["freq_rel"][ind]}',
         xy = (x + width/2, y + height*1.03),
         ha = "center",
-        color = [cmap(i/n_levels) for i in np.array(range(n_levels))][ind]
+        color = my_palette[n_levels//2]
     )
     ind += 1
 _ = ax.set_yscale("log")
@@ -73,10 +74,4 @@ _ = plt.xticks(fontsize = 14,
                rotation = 20)
 _ = plt.yticks(fontsize = 14)
 plt.legend([],[], frameon = False)
-
-
-
-
-
-
 
