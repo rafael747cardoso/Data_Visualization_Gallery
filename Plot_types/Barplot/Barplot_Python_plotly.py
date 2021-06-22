@@ -54,6 +54,7 @@ fig = px.bar(
 fig.update_traces(
     textposition = "outside",
     textfont_color = my_palette[n_levels//2],
+    textfont_size = 15,
     hovertemplate = "<b>Frequency: %{y:,}</b><extra></extra>"
 )
 fig.update_layout(

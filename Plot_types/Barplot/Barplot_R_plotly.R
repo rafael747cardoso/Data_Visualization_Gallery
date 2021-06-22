@@ -12,9 +12,9 @@ require(plotly, lib = path_lib)
 
 # Dataset:
 df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
-         as.data.frame()
+    as.data.frame()
 df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")) %>%
-                  as.data.frame()
+    as.data.frame()
 
 # Variables:
 cat_var = "pl_tsystemref"
@@ -43,7 +43,7 @@ df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
-plot_ly(
+p = plot_ly(
     data = df_plot,
     x = ~level,
     y = ~freq,
@@ -51,7 +51,7 @@ plot_ly(
     text = ~freq_rel,
     texttemplate = "%{text}",
     textposition = "outside",
-    textfont = list(size = 18,
+    textfont = list(size = 20,
                     color = my_palette(3)[2]),
     color = ~level,
     colors = my_palette(nrow(df_plot)),
@@ -79,4 +79,7 @@ plot_ly(
         hoverlabel = list(font = list(size = 16)),
         showlegend = FALSE
     )
+
+p
+    
 

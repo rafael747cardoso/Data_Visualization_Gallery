@@ -60,7 +60,8 @@ for p in ax.patches:
         text = f'{df_plot["freq_rel"][ind]}',
         xy = (x + width/2, y + height*1.03),
         ha = "center",
-        color = my_palette[n_levels//2]
+        color = my_palette[n_levels//2],
+        fontsize = 15
     )
     ind += 1
 _ = ax.set_yscale("log")

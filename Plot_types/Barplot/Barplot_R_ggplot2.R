@@ -57,6 +57,7 @@ p = ggplot(data = df_plot) +
                   y = freq, 
                   label = freq_rel),
               color = my_palette(3)[2],
+              size = 7,
               vjust = -0.2) +
     scale_fill_manual(
         values = my_palette(nrow(df_plot))
@@ -93,7 +94,7 @@ p = ggplot(data = df_plot) +
     xlab(cat_var_name) +
     ylab("Frequency")
 
-# y-axis notation and scale:
+# Y-axis notation and scale:
 great_number = 10000
 great_distance = 100
 min_non_zero = (df_plot %>%
