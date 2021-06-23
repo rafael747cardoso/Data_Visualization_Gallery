@@ -71,8 +71,12 @@ _ = ax.set_xlabel(cat_var_name,
                   fontsize = 16)
 _ = ax.set_ylabel("Frequency",
                   fontsize = 16)
-_ = plt.xticks(fontsize = 14,
-               rotation = 20)
-_ = plt.yticks(fontsize = 14)
+_ = ax.tick_params(axis = "x", 
+                   which = "major", 
+                   labelsize = 16,
+                   rotation = 20)
+_ = ax.tick_params(axis = "y", 
+                   which = "major", 
+                   labelsize = 16)
 plt.legend([],[], frameon = False)
 

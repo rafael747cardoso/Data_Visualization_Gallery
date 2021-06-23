@@ -34,7 +34,7 @@ df_plot = pd.DataFrame({"level": levels,
 # Deal with nan:
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
                                        "freq": df[cat_var].isna().sum()}),
-                        sort = False)
+                         sort = False)
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
@@ -69,8 +69,11 @@ _ = ax.set_xlabel(cat_var_name,
                   fontsize = 16)
 _ = ax.set_ylabel("Frequency",
                   fontsize = 16)
-_ = plt.xticks(fontsize = 14,
-               rotation = 20)
-_ = plt.yticks(fontsize = 14)
-
+_ = ax.tick_params(axis = "x", 
+                   which = "major", 
+                   labelsize = 16,
+                   rotation = 20)
+_ = ax.tick_params(axis = "y", 
+                   which = "major", 
+                   labelsize = 16)
 
