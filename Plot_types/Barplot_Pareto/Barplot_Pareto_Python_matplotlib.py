@@ -55,17 +55,6 @@ _ = ax.bar(
     height = df_plot["freq"],
     color = my_palette
 )
-ax2 = ax.twinx()
-_ = ax2.plot(
-    df_plot["level"].tolist(),
-    df_plot["freq_rel_cum"].tolist(),
-    color = "#FF7000"
-)
-_ = ax2.scatter(
-    x = df_plot["level"].tolist(),
-    y = df_plot["freq_rel_cum"].tolist(),
-    color = "#AC0D09"
-)
 ind = 0
 for p in ax.patches:
     width = p.get_width()
@@ -79,6 +68,17 @@ for p in ax.patches:
         fontsize = 15
     )
     ind += 1
+ax2 = ax.twinx()
+_ = ax2.plot(
+    df_plot["level"].tolist(),
+    df_plot["freq_rel_cum"].tolist(),
+    color = "#FF7000"
+)
+_ = ax2.scatter(
+    x = df_plot["level"].tolist(),
+    y = df_plot["freq_rel_cum"].tolist(),
+    color = "#AC0D09"
+)
 for i, j in zip(df_plot["level"], df_plot["freq_rel_cum"]):
     ax2.annotate(
         text = str(j) + "%",
@@ -96,11 +96,11 @@ _ = ax.tick_params(axis = "x",
                    which = "major", 
                    labelsize = 16,
                    rotation = 20)
-_ = ax2.set_ylabel("Cumulative frequency (%)",
-                   fontsize = 16)
 _ = ax.tick_params(axis = "y", 
                    which = "major", 
                    labelsize = 16)
+_ = ax2.set_ylabel("Cumulative frequency (%)",
+                   fontsize = 16)
 _ = ax2.tick_params(axis = "y", 
                    which = "major", 
                    labelsize = 16)
