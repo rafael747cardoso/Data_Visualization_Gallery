@@ -37,7 +37,8 @@ df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
-df_plot["freq_rel"] = [str(round(i/sum(df_plot["freq"])*100, 3)) + "%" for i in df_plot["freq"]]
+df_plot["freq_rel"] = [round(i/sum(df_plot["freq"])*100, 3) for i in df_plot["freq"]]
+df_plot["freq_rel_char"] = [str(i) + "%" for i in df_plot["freq_rel"]]
 
 # Plot:
 n_levels = df_plot.shape[0]
@@ -59,7 +60,7 @@ for p in ax.patches:
     height = p.get_height()
     x, y = p.get_xy() 
     ax.annotate(
-        text = f'{df_plot["freq_rel"][ind]}',
+        text = f'{df_plot["freq_rel_char"][ind]}',
         xy = (x + width/2, y + height*1.03),
         ha = "center",
         color = my_palette[n_levels//2],
