@@ -38,12 +38,16 @@ df_plot$level = factor(x = df_plot$level,
                                   "NA"))
 
 # Relative frequency:
-df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
-                                digits = 3), "%")
+df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
+                         digits = 3)
+df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
 
 # Cumulative frequency:
-df_plot$freq_rel_cum = 
+df_plot$freq_rel_cum = cumsum(df_plot$freq_rel)
+df_plot$freq_rel_cum_char = paste0(df_plot$freq_rel_cum, "%")
 
+n = nrow(df_plot)
+pareto_scale = df_plot$freq_rel_cum[n]/df_plot$freq[1]
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
@@ -57,14 +61,48 @@ p = ggplot(data = df_plot) +
         stat = "identity",
         show.legend = FALSE
     ) +
-    geom_text(aes(x = level, 
-                  y = freq, 
-                  label = freq_rel),
-              color = my_palette(3)[2],
-              size = 5,
-              vjust = -0.2) +
-    scale_fill_manual(
-        values = my_palette(nrow(df_plot))
+    geom_text(
+        aes(
+            x = level, 
+            y = freq, 
+            label = freq_rel_char
+        ),
+        color = my_palette(3)[2],
+        size = 5,
+        vjust = -0.2
+    ) +
+    scale_fill_manual(values = my_palette(nrow(df_plot))) +
+    geom_line(
+        aes(
+            x = ind,
+            y = freq_rel_cum/pareto_scale
+        ),
+        color = "#FF7000",
+        size = 1.5
+    ) +
+    geom_point(
+        aes(
+            x = ind,
+            y = freq_rel_cum/pareto_scale
+        ),
+        color = "#FF7000",
+        size = 2
+    ) +
+    geom_text(
+        aes(
+            x = level, 
+            y = freq_rel_cum/pareto_scale, 
+            label = freq_rel_cum_char
+        ),
+        color = "#FF7000",
+        size = 5,
+        vjust = 2
+    ) +
+    scale_y_continuous(
+        sec.axis = sec_axis(
+            trans = ~ .*pareto_scale,
+            name = "Cumulative frequency"
+        )
     ) +
     theme(
         axis.text.x = element_text(
@@ -98,34 +136,6 @@ p = ggplot(data = df_plot) +
     xlab(cat_var_name) +
     ylab("Frequency")
 
-# Y-axis notation and scale:
-great_number = 10000
-great_distance = 100
-min_non_zero = (df_plot %>%
-                    dplyr::filter(freq > 0) %>%
-                    dplyr::arrange(freq))$freq[1]
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE),
-                           trans = "log10")
-}
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) <= great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE))
-}
-if(max(abs(range(df_plot$freq))) <= great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(trans = "log10")
-}
-
 p
-
-
-
-
-
 
 

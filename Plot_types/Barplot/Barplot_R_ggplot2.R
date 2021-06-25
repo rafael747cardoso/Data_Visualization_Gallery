@@ -38,8 +38,9 @@ df_plot$level = factor(x = df_plot$level,
                                   "NA"))
 
 # Relative frequency:
-df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
-                                digits = 3), "%")
+df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
+                         digits = 3)
+df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
@@ -55,7 +56,7 @@ p = ggplot(data = df_plot) +
     ) +
     geom_text(aes(x = level, 
                   y = freq, 
-                  label = freq_rel),
+                  label = freq_rel_char),
               color = my_palette(3)[2],
               size = 7,
               vjust = -0.2) +

@@ -38,8 +38,9 @@ df_plot$level = factor(x = df_plot$level,
                                   "NA"))
 
 # Relative frequency:
-df_plot$freq_rel = paste0(round(df_plot$freq/sum(df_plot$freq)*100,
-                                digits = 3), "%")
+df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
+                         digits = 3)
+df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
@@ -48,7 +49,7 @@ p = plot_ly(
     x = ~level,
     y = ~freq,
     type = "bar",
-    text = ~freq_rel,
+    text = ~freq_rel_char,
     texttemplate = "%{text}",
     textposition = "outside",
     textfont = list(size = 20,
