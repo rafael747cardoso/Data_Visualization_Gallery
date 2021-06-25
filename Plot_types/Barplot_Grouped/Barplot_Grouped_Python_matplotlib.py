@@ -21,11 +21,16 @@ df = pd.read_csv(path_data + "nasa_exoplanets.csv")
 df_varnames = pd.read_csv(path_data + "nasa_exoplanets_var_names.csv")
 
 # Variables:
-cat_var = "pl_tsystemref"
-cat_var_name = df_varnames.loc[(df_varnames["var"] == cat_var), ["var_name"]].values[0][0]
+cat_var1 = "pl_tsystemref"
+cat_var2 = "discoverymethod"
+cat_var_name1 = df_varnames.loc[(df_varnames["var"] == cat_var1), ["var_name"]].values[0][0]
+cat_var_name2 = df_varnames.loc[(df_varnames["var"] == cat_var2), ["var_name"]].values[0][0]
 
 # Adapt the data:
 df_plot = df.groupby(by = cat_var)[cat_var].agg("count")
+
+
+
 levels = df_plot.index.tolist()
 df_plot = pd.DataFrame({"level": levels,
                         "freq": df_plot.values.tolist()}).sort_values("freq",
