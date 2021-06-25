@@ -1,7 +1,6 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 
 # Packages:
 import numpy as np
@@ -33,8 +32,7 @@ df_plot = pd.DataFrame({"level": levels,
 
 # Deal with nan:
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
-                                       "freq": df[cat_var].isna().sum()}),
-                         sort = False)
+                                       "freq": df[cat_var].isna().sum()})).sort_values("freq", ascending = False)
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
@@ -49,7 +47,6 @@ df_plot["freq_rel_cum_char"] = [str(i) + "%" for i in df_plot["freq_rel_cum"]]
 n_levels = df_plot.shape[0]
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [to_hex(j) for j in  [cmap(i/n_levels) for i in np.array(range(n_levels))]]
-
 fig = make_subplots(specs = [[{"secondary_y": True}]])
 fig.add_trace(
     go.Bar(
@@ -75,12 +72,15 @@ fig.add_trace(
         x = df_plot["level"],
         y = df_plot["freq_rel_cum"],
         mode = "lines+markers+text",
+        marker = dict(
+            color = "#FF7000"
+        ),
         text = df_plot["freq_rel_cum_char"],
         textposition = "bottom center",
         textfont = dict(
             family = "sans serif",
             size = 14,
-            color = my_palette[n_levels - 2]
+            color = "#FF7000"
         ),
         hovertemplate = "<b>Cumulative frequency: %{y:,}%</b><extra></extra>"
     ),

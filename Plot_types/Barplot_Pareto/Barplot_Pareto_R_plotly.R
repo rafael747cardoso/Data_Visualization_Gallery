@@ -1,14 +1,13 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 path_lib = "renv/library/R-4.1/x86_64-pc-linux-gnu/"
 
 # Packages:
 require(dplyr, lib = path_lib)
 require(readr, lib = path_lib)
 require(RColorBrewer, lib = path_lib)
-require(ggplot2, lib = path_lib)
+require(plotly, lib = path_lib)
 
 # Dataset:
 df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
@@ -117,7 +116,5 @@ p = plot_ly(data = df_plot) %>%
     )
 
 p
-
-
 
 

@@ -1,7 +1,6 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 
 # Packages:
 import numpy as np
@@ -32,8 +31,7 @@ df_plot = pd.DataFrame({"level": levels,
 
 # Deal with nan:
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
-                                       "freq": df[cat_var].isna().sum()}),
-                         sort = False)
+                                       "freq": df[cat_var].isna().sum()})).sort_values("freq", ascending = False)
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
@@ -79,14 +77,14 @@ _ = ax2.plot(
 _ = ax2.scatter(
     x = df_plot["level"].tolist(),
     y = df_plot["freq_rel_cum"].tolist(),
-    color = "#AC0D09"
+    color = "#FF7000"
 )
 for i, j in zip(df_plot["level"], df_plot["freq_rel_cum"]):
     ax2.annotate(
         text = str(j) + "%",
         xy = (i, j - 1),
         ha = "center",
-        color = my_palette[n_levels//8],
+        color = "#FF7000",
         fontsize = 12
     )
 _ = ax.set_yscale("log")

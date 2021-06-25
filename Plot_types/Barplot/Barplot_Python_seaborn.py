@@ -1,7 +1,6 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 
 # Packages:
 import numpy as np
@@ -32,8 +31,7 @@ df_plot = pd.DataFrame({"level": levels,
 
 # Deal with nan:
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
-                                       "freq": df[cat_var].isna().sum()}),
-                        sort = False)
+                                       "freq": df[cat_var].isna().sum()})).sort_values("freq", ascending = False)
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:

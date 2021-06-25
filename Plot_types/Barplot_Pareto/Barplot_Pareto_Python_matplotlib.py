@@ -1,7 +1,6 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 
 # Packages:
 import numpy as np
@@ -28,13 +27,11 @@ cat_var_name = df_varnames.loc[(df_varnames["var"] == cat_var), ["var_name"]].va
 df_plot = df.groupby(by = cat_var)[cat_var].agg("count")
 levels = df_plot.index.tolist()
 df_plot = pd.DataFrame({"level": levels,
-                        "freq": df_plot.values.tolist()}).sort_values("freq",
-                                                                      ascending = False)
+                        "freq": df_plot.values.tolist()})
 
 # Deal with nan:
 df_plot = df_plot.append(pd.DataFrame({"level": ["NA"],
-                                       "freq": df[cat_var].isna().sum()}),
-                         sort = False)
+                                       "freq": df[cat_var].isna().sum()})).sort_values("freq", ascending = False)
 df_plot = df_plot.copy().reset_index(drop = True)
 
 # Relative frequency:
@@ -77,14 +74,14 @@ _ = ax2.plot(
 _ = ax2.scatter(
     x = df_plot["level"].tolist(),
     y = df_plot["freq_rel_cum"].tolist(),
-    color = "#AC0D09"
+    color = "#FF7000"
 )
 for i, j in zip(df_plot["level"], df_plot["freq_rel_cum"]):
     ax2.annotate(
         text = str(j) + "%",
         xy = (i, j - 1),
         ha = "center",
-        color = my_palette[n_levels//2],
+        color = "#FF7000",
         fontsize = 12
     )
 _ = ax.set_yscale("log")
@@ -102,7 +99,7 @@ _ = ax.tick_params(axis = "y",
 _ = ax2.set_ylabel("Cumulative frequency (%)",
                    fontsize = 16)
 _ = ax2.tick_params(axis = "y", 
-                   which = "major", 
-                   labelsize = 16)
+                    which = "major", 
+                    labelsize = 16)
 
 

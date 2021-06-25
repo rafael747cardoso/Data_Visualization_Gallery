@@ -1,7 +1,6 @@
 
 # Paths:
 path_data = "data/"
-path_plot = "Plot_types/Barplot/"
 path_lib = "renv/library/R-4.1/x86_64-pc-linux-gnu/"
 
 # Packages:
@@ -34,8 +33,7 @@ df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Levels order:
 df_plot$level = factor(x = df_plot$level,
-                       levels = c(unique(df_plot$level)[unique(df_plot$level) != "NA"],
-                                  "NA"))
+                       levels = unique(df_plot$level))
 
 # Relative frequency:
 df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
@@ -45,6 +43,7 @@ df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
 # Cumulative frequency:
 df_plot$freq_rel_cum = cumsum(df_plot$freq_rel)
 df_plot$freq_rel_cum_char = paste0(df_plot$freq_rel_cum, "%")
+df_plot$ind = 1:nrow(df_plot)
 
 n = nrow(df_plot)
 pareto_scale = df_plot$freq_rel_cum[n]/df_plot$freq[1]
