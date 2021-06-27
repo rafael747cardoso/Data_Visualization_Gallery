@@ -66,16 +66,27 @@ for p in ax.patches:
     )
     ind += 1
 _ = ax.set_yscale("log")
-_ = ax.set_xlabel(cat_var_name,
-                  fontsize = 16)
-_ = ax.set_ylabel("Frequency",
-                  fontsize = 16)
-_ = ax.tick_params(axis = "x", 
-                   which = "major", 
-                   labelsize = 16,
-                   rotation = 20)
-_ = ax.tick_params(axis = "y", 
-                   which = "major", 
-                   labelsize = 16)
-plt.legend([],[], frameon = False)
+_ = ax.set_xlabel(
+    cat_var_name,
+    fontsize = 16
+)
+_ = ax.set_ylabel(
+    "Frequency",
+    fontsize = 16
+)
+_ = ax.tick_params(
+    axis = "x", 
+    which = "major", 
+    labelsize = 16,
+    rotation = 20
+)
+_ = ax.tick_params(
+    axis = "y", 
+    which = "major", 
+    labelsize = 16
+)
+plt.legend(
+    [], [], 
+    frameon = False
+)
 

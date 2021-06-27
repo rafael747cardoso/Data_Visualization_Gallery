@@ -46,3 +46,12 @@ df_plot["freq_rel"] = [round(i/sum(df_plot["freq"])*100, 3) for i in df_plot["fr
 df_plot["freq_rel_char"] = [str(i) + "%" for i in df_plot["freq_rel"]]
 
 
+
+
+
+# Plot:
+
+
+
+
+

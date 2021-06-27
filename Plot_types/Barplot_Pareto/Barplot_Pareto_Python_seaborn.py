@@ -117,7 +117,9 @@ _ = ax2.tick_params(
     labelsize = 16
 )
 _ = ax2.set_ylim([0, 110])
-plt.legend([], [], 
-           frameon = False)
+plt.legend(
+    [], [], 
+    frameon = False
+)
 
 
