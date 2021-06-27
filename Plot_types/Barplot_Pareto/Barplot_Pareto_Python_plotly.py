@@ -61,7 +61,7 @@ fig.add_trace(
     ),
     secondary_y = False
 )
-fig.update_yaxes(type = "log")
+fig.update_yaxes(type = "linear")
 fig.update_traces(
     textposition = "outside",
     textfont_color = my_palette[n_levels//2],
@@ -86,6 +86,11 @@ fig.add_trace(
     ),
     secondary_y = True
 )
+fig.update_yaxes(
+    title_text = "<b>Cumulative frequency</b>", 
+    secondary_y = True,
+    range = [0, 110]
+)
 fig.update_layout(
     xaxis_title = "<b>" + cat_var_name + "</b>" ,
     yaxis_title = "<b>Frequency</b>",
@@ -99,10 +104,6 @@ fig.update_layout(
         font_size = 18,
         font_family = "Rockwell"
     )
-)
-fig.update_yaxes(
-    title_text = "<b>Cumulative frequency</b>", 
-    secondary_y = True
 )
 fig.show()
 

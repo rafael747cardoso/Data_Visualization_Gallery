@@ -59,7 +59,7 @@ for p in ax.patches:
     x, y = p.get_xy()
     ax.annotate(
         text = f'{df_plot["freq_rel_char"][ind]}',
-        xy = (x + width/2, y + height*1.03),
+        xy = (x + width/2, y + height*1.5),
         ha = "center",
         color = my_palette[n_levels//8],
         fontsize = 15
@@ -79,27 +79,40 @@ _ = ax2.scatter(
 for i, j in zip(df_plot["level"], df_plot["freq_rel_cum"]):
     ax2.annotate(
         text = str(j) + "%",
-        xy = (i, j - 1),
+        xy = (i, j - 4),
         ha = "center",
         color = "#FF7000",
         fontsize = 12
     )
-_ = ax.set_yscale("log")
-_ = ax.set_xlabel(cat_var_name,
-                  fontsize = 16)
-_ = ax.set_ylabel("Frequency",
-                  fontsize = 16)
-_ = ax.tick_params(axis = "x", 
-                   which = "major", 
-                   labelsize = 16,
-                   rotation = 20)
-_ = ax.tick_params(axis = "y", 
-                   which = "major", 
-                   labelsize = 16)
-_ = ax2.set_ylabel("Cumulative frequency (%)",
-                   fontsize = 16)
-_ = ax2.tick_params(axis = "y", 
-                    which = "major", 
-                    labelsize = 16)
+_ = ax.set_yscale("linear")
+_ = ax.set_xlabel(
+    cat_var_name,
+    fontsize = 16
+)
+_ = ax.set_ylabel(
+    "Frequency",
+    fontsize = 16
+)
+_ = ax.tick_params(
+    axis = "x", 
+    which = "major", 
+    labelsize = 16,
+    rotation = 20
+)
+_ = ax.tick_params(
+    axis = "y", 
+    which = "major", 
+    labelsize = 16
+)
+_ = ax2.set_ylabel(
+    "Cumulative frequency (%)",
+    fontsize = 16
+)
+_ = ax2.tick_params(
+    axis = "y", 
+    which = "major", 
+    labelsize = 16
+)
+_ = ax2.set_ylim([0, 110])
 
 

@@ -99,6 +99,7 @@ p = plot_ly(data = df_plot) %>%
             type = "linear"
         ),
         yaxis2 = list(
+            range = c(0, 110),
             overlaying = "y", side = "right",
             title = "Cumulative frequency",
             titlefont = list(size = 20),
