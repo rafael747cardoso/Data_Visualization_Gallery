@@ -48,7 +48,7 @@ for lvl_var1 in levels_var1:
         [
             df_plot,
             # Absolute frequency:
-            pd.DataFrame({lvl_var1_name + "_freq": var2invar1_counts},
+            pd.DataFrame({lvl_var1_name + "_freq_abs": var2invar1_counts},
                          dtype = "int"),
             # Relative frequency:
             pd.DataFrame({lvl_var1_name + "_freq_rel": var2invar1_counts_rel},
@@ -58,17 +58,42 @@ for lvl_var1 in levels_var1:
         ],
         axis = 1)
 
+
+interest_columns = [i for i in df_plot.columns.tolist() if re.search(pattern = "freq_abs", string = i) or 
+                                                           re.search(pattern = cat_var2, string = i)]
+df_plot = df_plot[interest_columns]
+
 # Plot:
+
+# df_plot = df_plot.iloc[:, :7]
+
 n_levels = df_plot.shape[0]
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 
-x_location = np.arange(n_levels)
-bar_width = 0.35
-sinal = 1
+n_bars = n_levels
+total_width = 0.8
+single_width = 0.9
+bar_width = total_width/n_bars
 
-fig, ax = plt.subplots(figsize = (20, 10),
-                       tight_layout = True)
+fig, ax = plt.subplots(
+    figsize = (20, 10),
+    tight_layout = True
+)
+
+bars = []
+for i, (name, values) in enumerate(df_plot.items()):
+    x_offset = (i - n_bars / 2) * bar_width + bar_width / 2
+    for x, y in enumerate(values):
+        bar = ax.bar(
+            x = x + x_offset, 
+            y = y, 
+            width = bar_width * single_width, 
+            color = my_palette[i]
+        )
+    bars.append(bar[0])
+    ax.legend(bars, df_plot.keys())
+
 for lvl_var1 in levels_var1[0:1]:
     lvl_var1 = levels_var1[0]
     lvl_var1_name = re.sub(pattern = r"[ \-()#/@;:<>{}=~|.?,\\]",
@@ -81,19 +106,10 @@ for lvl_var1 in levels_var1[0:1]:
     )
     sinal = -sinal
     ax.bar_label(_, padding = 3)
-    # ind = 0
-    # for p in ax.patches:
-    #     width = p.get_width()
-    #     height = p.get_height()
-    #     x, y = p.get_xy() 
-    #     ax.annotate(
-    #         text = f'{df_plot[lvl_var1_name + "_freq_rel_char"][ind]}',
-    #         xy = (x + width/2, y + height*1.03),
-    #         ha = "center",
-    #         color = my_palette[n_levels//2],
-    #         fontsize = 15
-    #     )
-    #     ind += 1
+
+
+
+
 _ = ax.set_yscale("linear")
 _ = ax.set_xlabel(
     cat_vars_name,
