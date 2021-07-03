@@ -33,9 +33,8 @@ variables = [cat_var1, cat_var2]
 # Deal with NAN:
 df[variables] = df[variables].fillna("NA")
 
-df_plot = df
-
 # Plot:
+df_plot = df
 n_groups = len(set(df_plot[cat_var1].values.tolist()))
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
