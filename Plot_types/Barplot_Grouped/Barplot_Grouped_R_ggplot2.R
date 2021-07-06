@@ -111,6 +111,4 @@ if(max(abs(range(df_plot$freq))) <= great_number &
 
 p
 
-### fix the ggplot2 log10 scale for val = 0 and 1
-
 
