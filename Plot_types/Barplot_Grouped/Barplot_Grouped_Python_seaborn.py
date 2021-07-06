@@ -27,7 +27,6 @@ cat_var1 = "pl_letter"
 cat_var2 = "discoverymethod"
 cat_var_name1 = df_varnames.loc[(df_varnames["var"] == cat_var1), ["var_name"]].values[0][0]
 cat_var_name2 = df_varnames.loc[(df_varnames["var"] == cat_var2), ["var_name"]].values[0][0]
-cat_vars_name = cat_var_name1 + " grouped by " + cat_var_name2
 variables = [cat_var1, cat_var2]
 
 # Deal with NAN:
@@ -35,6 +34,7 @@ df[variables] = df[variables].fillna("NA")
 
 # Plot:
 df_plot = df
+df_plot = df_plot.sort_values(cat_var2)
 n_groups = len(set(df_plot[cat_var1].values.tolist()))
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
@@ -49,14 +49,22 @@ ax = sns.countplot(
     ec = "white",
     palette = my_palette
 )
+_ = ax.legend(
+    fontsize = "large",
+    title = cat_var_name1,
+    title_fontsize = 16,
+    loc = "upper right"
+)
 _ = ax.set_yscale("log")
 _ = ax.set_xlabel(
-    cat_vars_name,
-    fontsize = 16
+    cat_var_name2,
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.set_ylabel(
     "Frequency",
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.tick_params(
     axis = "x", 

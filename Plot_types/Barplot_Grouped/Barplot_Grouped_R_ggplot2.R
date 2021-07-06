@@ -33,6 +33,7 @@ df_plot = df %>%
 names(df_plot) = c("var1", "var2", "freq")
 
 # Plot:
+log_scale_fix = 10
 n_levels_var2 = df_plot$var2 %>%
                     unique() %>%
                     length()
@@ -41,13 +42,17 @@ p = ggplot(data = df_plot) +
     geom_bar(
         aes(
             x = var2,
-            y = freq,
+            y = freq*log_scale_fix + 1,
             fill = var1
         ),
-        width = 0.9,
-        position = position_dodge(width = 1),
+        width = 0.8,
+        position = position_dodge(width = 0.9),
         stat = "identity",
         show.legend = TRUE
+    ) +
+    scale_y_continuous(
+        labels = function(x) format(x/log_scale_fix, scientific = TRUE),
+        trans = "log10"
     ) +
     scale_fill_manual(
         name = cat_var_name1,
@@ -97,29 +102,6 @@ p = ggplot(data = df_plot) +
     ) +
     xlab(cat_var_name2) +
     ylab("Frequency")
-
-# Y-axis notation and scale:
-great_number = 10000
-great_distance = 100
-min_non_zero = (df_plot %>%
-                    dplyr::filter(freq > 0) %>%
-                    dplyr::arrange(freq))$freq[1]
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE),
-                           trans = "log10")
-}
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) <= great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE))
-}
-if(max(abs(range(df_plot$freq))) <= great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(trans = "log10")
-}
 
 p
 

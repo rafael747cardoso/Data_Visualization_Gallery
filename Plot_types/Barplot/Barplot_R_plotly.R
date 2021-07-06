@@ -58,13 +58,13 @@ p = plot_ly(
 ) %>%
     layout(
         xaxis = list(
-            title = cat_var_name,
+            title = paste0("<b>", cat_var_name, "</b>"),
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             categoryorder = "array"
         ),
         yaxis = list(
-            title = "Frequency",
+            title = "<b>Frequency</b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             type = "log"

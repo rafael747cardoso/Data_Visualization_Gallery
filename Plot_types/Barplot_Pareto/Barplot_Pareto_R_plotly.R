@@ -87,21 +87,22 @@ p = plot_ly(data = df_plot) %>%
     ) %>%
     layout(
         xaxis = list(
-            title = cat_var_name,
+            title = paste0("<b>", cat_var_name, "</b>"),
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             categoryorder = "array"
         ),
         yaxis = list(
-            title = "Frequency",
+            title = "<b>Frequency</b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             type = "linear"
         ),
         yaxis2 = list(
             range = c(0, 110),
-            overlaying = "y", side = "right",
-            title = "Cumulative frequency",
+            overlaying = "y",
+            side = "right",
+            title = "<b>Cumulative frequency</b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             type = "linear"

@@ -26,7 +26,6 @@ cat_var1 = "pl_letter"
 cat_var2 = "discoverymethod"
 cat_var_name1 = df_varnames.loc[(df_varnames["var"] == cat_var1), ["var_name"]].values[0][0]
 cat_var_name2 = df_varnames.loc[(df_varnames["var"] == cat_var2), ["var_name"]].values[0][0]
-cat_vars_name = cat_var_name1 + " grouped by " + cat_var_name2
 variables = [cat_var1, cat_var2]
 
 # Deal with NAN:
@@ -50,6 +49,7 @@ for lvl_var1 in levels_var1:
         ],
         axis = 1)
 df_plot = df_plot.fillna(0)
+df_plot = df_plot.sort_values(cat_var2)
 
 # Plot:
 n_groups = df_plot.shape[1] - 1
@@ -74,17 +74,26 @@ for i, (name, values) in enumerate(df_plot.iloc[:, 1:].items()):
             color = my_palette[i]
         )
     bars.append(bar[0])
-    ax.legend(bars, df_plot.iloc[:, 1:].keys())
+_ = ax.legend(
+    bars, 
+    df_plot.iloc[:, 1:].keys(),
+    fontsize = "large",
+    title = cat_var_name1,
+    title_fontsize = 16,
+    loc = "upper right"
+)
 _ = ax.set_xticks(np.arange(df_plot.shape[0]))
 _ = ax.set_xticklabels(df_plot[cat_var2])
 _ = ax.set_yscale("log")
 _ = ax.set_xlabel(
-    cat_vars_name,
-    fontsize = 16
+    cat_var_name2,
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.set_ylabel(
     "Frequency",
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.tick_params(
     axis = "x", 
@@ -100,5 +109,4 @@ _ = ax.tick_params(
 _ = plt.setp(ax.get_xticklabels(),
              ha = "right", 
              rotation_mode = "anchor")
-
 

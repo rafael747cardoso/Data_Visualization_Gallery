@@ -90,11 +90,13 @@ for i, j in zip(df_plot["level"], df_plot["freq_rel_cum"]):
 _ = ax.set_yscale("linear")
 _ = ax.set_xlabel(
     cat_var_name,
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.set_ylabel(
     "Frequency",
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.tick_params(
     axis = "x", 
@@ -109,7 +111,8 @@ _ = ax.tick_params(
 )
 _ = ax2.set_ylabel(
     "Cumulative frequency (%)",
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax2.tick_params(
     axis = "y", 

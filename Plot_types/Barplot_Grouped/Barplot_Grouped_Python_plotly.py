@@ -28,7 +28,6 @@ cat_var1 = "pl_letter"
 cat_var2 = "discoverymethod"
 cat_var_name1 = df_varnames.loc[(df_varnames["var"] == cat_var1), ["var_name"]].values[0][0]
 cat_var_name2 = df_varnames.loc[(df_varnames["var"] == cat_var2), ["var_name"]].values[0][0]
-cat_vars_name = cat_var_name1 + " grouped by " + cat_var_name2
 variables = [cat_var1, cat_var2]
 
 # Deal with NAN:
@@ -52,6 +51,7 @@ for lvl_var1 in levels_var1:
         ],
         axis = 1)
 df_plot = df_plot.fillna(0)
+df_plot = df_plot.sort_values(cat_var2)
 
 # Plot:
 n_groups = df_plot.shape[1] - 1
@@ -65,15 +65,18 @@ for i in range(n_groups):
             x = df_plot[cat_var2],
             y = df_plot[df_plot.columns[i + 1]],
             marker = dict(color = my_palette[i]),
-            offsetgroup = i
+            offsetgroup = i,
+            hovertemplate = "<b>Frequency: %{y:,}<br>" +
+                           cat_var_name2 + ": %{x}<br>" +
+                           cat_var_name1 + ": " + df_plot.columns[i + 1] + "</b><extra></extra>"
         )
     ]
 fig = go.Figure(data = bars)
 fig.update_yaxes(type = "log")
 fig.update_layout(
-    xaxis_title = "<b>" + cat_vars_name + "</b>" ,
+    xaxis_title = "<b>" + cat_var_name2 + "</b>" ,
     yaxis_title = "<b>Frequency</b>",
-    legend_title = cat_var_name1,
+    legend_title = "<b>" + cat_var_name1 + "</b>",
     font = dict(size = 18),
     showlegend = True,
     plot_bgcolor = "white",

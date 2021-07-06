@@ -66,11 +66,13 @@ for p in ax.patches:
 _ = ax.set_yscale("log")
 _ = ax.set_xlabel(
     cat_var_name,
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.set_ylabel(
     "Frequency",
-    fontsize = 16
+    fontsize = 16,
+    fontweight = "bold"
 )
 _ = ax.tick_params(
     axis = "x", 

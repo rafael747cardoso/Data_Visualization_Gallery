@@ -41,19 +41,24 @@ df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
 df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
 
 # Plot:
+log_scale_fix = 10
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 p = ggplot(data = df_plot) + 
     geom_bar(
         aes(
             x = level,
-            y = freq,
+            y = freq*log_scale_fix,
             fill = level
         ),
         stat = "identity",
         show.legend = FALSE
     ) +
+    scale_y_continuous(
+        labels = function(x) format(x/log_scale_fix, scientific = TRUE),
+        trans = "log10"
+    ) +
     geom_text(aes(x = level, 
-                  y = freq, 
+                  y = freq*log_scale_fix, 
                   label = freq_rel_char),
               color = my_palette(3)[2],
               size = 7,
@@ -69,8 +74,14 @@ p = ggplot(data = df_plot) +
             vjust = 1
         ),
         axis.text.y = element_text(size = 14),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
+        axis.title.x = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        axis.title.y = element_text(
+            size = 15,
+            face = "bold"
+        ),
         panel.background = element_rect(fill = "white"),
         panel.grid.major = element_line(
             size = 0.2,
@@ -92,29 +103,6 @@ p = ggplot(data = df_plot) +
     ) +
     xlab(cat_var_name) +
     ylab("Frequency")
-
-# Y-axis notation and scale:
-great_number = 10000
-great_distance = 100
-min_non_zero = (df_plot %>%
-                    dplyr::filter(freq > 0) %>%
-                    dplyr::arrange(freq))$freq[1]
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE),
-                           trans = "log10")
-}
-if(max(abs(range(df_plot$freq))) > great_number &
-   max(df_plot$freq)/(min_non_zero) <= great_distance){
-    p = p +
-        scale_y_continuous(labels = function(x) format(x, scientific = TRUE))
-}
-if(max(abs(range(df_plot$freq))) <= great_number &
-   max(df_plot$freq)/(min_non_zero) > great_distance){
-    p = p +
-        scale_y_continuous(trans = "log10")
-}
 
 p
 
