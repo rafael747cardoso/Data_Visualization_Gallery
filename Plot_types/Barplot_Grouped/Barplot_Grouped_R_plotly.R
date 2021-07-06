@@ -48,13 +48,13 @@ p = plot_ly(
 ) %>%
     layout(
         xaxis = list(
-            title = cat_var_name2,
+            title = paste0("<b>", cat_var_name2, "</b>"),
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             categoryorder = "array"
         ),
         yaxis = list(
-            title = "Frequency",
+            title = "<b>Frequency<b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18),
             type = "log"
@@ -65,7 +65,12 @@ p = plot_ly(
             t = 5,
             b = 70
         ),
-        legend = list(title = list(text = paste0("<br>", cat_var_name1))),
+        legend = list(
+            title = list(
+                text = paste0("<br><b>", cat_var_name1, "</b>"),
+                font = list(size = 18)
+            )
+        ),
         hoverlabel = list(font = list(size = 16)),
         showlegend = TRUE
     )

@@ -22,7 +22,6 @@ cat_var_name1 = (df_varnames %>%
                     dplyr::filter(var == cat_var1))$var_name
 cat_var_name2 = (df_varnames %>%
                      dplyr::filter(var == cat_var2))$var_name
-cat_var_name = paste0(cat_var_name1, " grouped by ", cat_var_name2)
 
 # Deal with NA:
 df[which(is.na(df[cat_var2])), cat_var2] = "NA"
@@ -57,13 +56,26 @@ p = ggplot(data = df_plot) +
     theme(
         axis.text.x = element_text(
             size = 14,
-            angle = 20, 
+            angle = 20,
             hjust = 1,
             vjust = 1
         ),
         axis.text.y = element_text(size = 14),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
+        axis.title.x = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        axis.title.y = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(
+            size = 14
+        ),
         panel.background = element_rect(fill = "white"),
         panel.grid.major = element_line(
             size = 0.2,
@@ -83,7 +95,7 @@ p = ggplot(data = df_plot) +
             unit = "pt"
         )
     ) +
-    xlab(cat_var_name) +
+    xlab(cat_var_name2) +
     ylab("Frequency")
 
 # Y-axis notation and scale:
