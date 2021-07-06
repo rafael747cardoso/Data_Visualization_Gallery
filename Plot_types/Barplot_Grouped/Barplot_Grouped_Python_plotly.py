@@ -52,6 +52,7 @@ for lvl_var1 in levels_var1:
         axis = 1)
 df_plot = df_plot.fillna(0)
 df_plot = df_plot.sort_values(cat_var2)
+df_plot = df_plot.reset_index(drop = True)
 
 # Plot:
 n_groups = df_plot.shape[1] - 1
