@@ -52,6 +52,9 @@ p = ggplot(data = df_plot) +
         name = cat_var_name1,
         values = my_palette(n_levels_var2)
     ) +
+    scale_y_continuous(
+        labels = function(x){x*100}
+    ) +
     theme(
         axis.text.x = element_text(
             size = 14,
@@ -96,7 +99,7 @@ p = ggplot(data = df_plot) +
     ) +
     xlab(cat_var_name2) +
     # ylab("Frequency")
-    ylab("Proportion")
+    ylab("Proportion (%)")
 
 p
 

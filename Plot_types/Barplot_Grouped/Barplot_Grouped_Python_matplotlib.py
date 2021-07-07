@@ -107,7 +107,13 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
-_ = plt.setp(ax.get_xticklabels(),
-             ha = "right", 
-             rotation_mode = "anchor")
+_ = plt.setp(
+    ax.get_xticklabels(),
+    ha = "right", 
+    rotation_mode = "anchor"
+)
+_ = plt.xlim(
+    left = -1,
+    right = df_plot.shape[0] + 1
+)
 

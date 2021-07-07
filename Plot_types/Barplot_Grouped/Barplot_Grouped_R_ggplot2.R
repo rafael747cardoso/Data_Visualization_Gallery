@@ -51,7 +51,7 @@ p = ggplot(data = df_plot) +
         show.legend = TRUE
     ) +
     scale_y_continuous(
-        labels = function(x) format(x/log_scale_fix, scientific = TRUE),
+        labels = function(x){format(x/log_scale_fix, scientific = TRUE)},
         trans = "log10"
     ) +
     scale_fill_manual(

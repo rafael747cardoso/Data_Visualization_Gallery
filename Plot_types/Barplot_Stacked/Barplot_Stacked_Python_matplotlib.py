@@ -52,14 +52,15 @@ df_plot = df_plot.fillna(0)
 df_plot = df_plot.sort_values(cat_var2)
 df_plot = df_plot.reset_index(drop = True)
 
+# Relative frequencies:
 df_plot_rel = df_plot.copy()
 for l1 in range(df_plot_rel.shape[0]):
     sum_lvl_var1 = sum([df_plot_rel.iloc[l1, i] for i in range(1, df_plot_rel.shape[1])])
     for l2 in range(1, df_plot_rel.shape[1]):
         df_plot_rel.iloc[l1, l2] = round(df_plot_rel.iloc[l1, l2]/sum_lvl_var1*100, 2)
+# df_plot = df_plot_rel
 
 # Plot:
-df_plot = df_plot_rel
 n_groups = df_plot.shape[1] - 1
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
@@ -68,14 +69,16 @@ fig, ax = plt.subplots(
     tight_layout = True
 )
 bars = []
+y_sum = np.zeros(df_plot.shape[0])
 for i, (name, values) in enumerate(df_plot.iloc[:, 1:].items()):
-    y_sum = df_plot.loc[i, name]
     for x, y in enumerate(values):
         bar = ax.bar(
             x = x,
-            height = y + y_sum,
+            bottom = y_sum[x],
+            height = y,
             color = my_palette[i]
         )
+    y_sum = df_plot.iloc[:, 1:(i + 2)].sum(axis = 1)
     bars.append(bar[0])
 _ = ax.legend(
     bars, 
@@ -95,6 +98,7 @@ _ = ax.set_xlabel(
 )
 _ = ax.set_ylabel(
     "Frequency",
+    # "Proportion (%)",
     fontsize = 16,
     fontweight = "bold"
 )
@@ -109,6 +113,18 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
-_ = plt.setp(ax.get_xticklabels(),
-             ha = "right", 
-             rotation_mode = "anchor")
+_ = plt.setp(
+    ax.get_xticklabels(),
+    ha = "right", 
+    rotation_mode = "anchor"
+)
+_ = plt.xlim(
+    left = -1,
+    right = df_plot.shape[0] + 1
+)
+# _ = plt.ylim(
+#     bottom = -5,
+#     top = 105
+# )
+
+

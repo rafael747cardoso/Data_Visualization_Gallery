@@ -46,6 +46,7 @@ ax = sns.countplot(
     data = df_plot, 
     x = cat_var2, 
     hue = cat_var1,
+    hue_order = pd.crosstab(df_plot[cat_var1], df_plot[cat_var2]).sort_values(by = cat_var1).index,
     ec = "white",
     palette = my_palette
 )
@@ -77,8 +78,10 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
-_ = plt.setp(ax.get_xticklabels(),
-             ha = "right", 
-             rotation_mode = "anchor")
+_ = plt.setp(
+    ax.get_xticklabels(),
+    ha = "right", 
+    rotation_mode = "anchor"
+)
 
 

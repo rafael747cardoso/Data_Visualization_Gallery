@@ -77,7 +77,7 @@ p = plot_ly(
         ),
         yaxis = list(
             # title = "<b>Frequency<b>",
-            title = "<b>Proportion<b>",
+            title = "<b>Proportion (%)<b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18)
         ),
