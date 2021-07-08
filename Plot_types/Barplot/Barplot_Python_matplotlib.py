@@ -43,8 +43,10 @@ df_plot["freq_rel_char"] = [str(i) + "%" for i in df_plot["freq_rel"]]
 n_levels = df_plot.shape[0]
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
-fig, ax = plt.subplots(figsize = (20, 10),
-                       tight_layout = True)
+fig, ax = plt.subplots(
+    figsize = (20, 10),
+    tight_layout = True
+)
 _ = ax.bar(
     x = df_plot["level"].tolist(),
     height = df_plot["freq"],
