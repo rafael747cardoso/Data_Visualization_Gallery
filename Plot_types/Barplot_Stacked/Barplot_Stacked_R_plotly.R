@@ -33,6 +33,7 @@ df_plot = df %>%
     as.data.frame()
 names(df_plot) = c("var1", "var2", "freq")
 
+# Relative frequencies:
 t = 1
 freq_rel = c()
 levels_var1 = levels(df_plot$var1)
@@ -51,19 +52,20 @@ for(i in 1:length(levels_var2)){
 }
 df_plot$freq_rel = freq_rel
 
+# Plot parameters:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+
+# Absolute frequency plot:
 p = plot_ly(
     data = df_plot,
     x = ~var2,
-    # y = ~freq, # absolute
-    y = ~freq_rel, # relative
+    y = ~freq,
     type = "bar",
     color = ~var1,
     colors = my_palette(nrow(df_plot)),
     text = ~var1,
     hovertemplate = paste0(
-        # "<b>Frequency: %{y:,}<br>", 
-        "<b>Proportion: %{y:,} %<br>", 
+        "<b>Frequency: %{y:,}<br>",
         cat_var_name2, ": %{x}<br>", 
         cat_var_name1, ": %{text}</b><extra></extra>"
     )
@@ -76,8 +78,7 @@ p = plot_ly(
             categoryorder = "array"
         ),
         yaxis = list(
-            # title = "<b>Frequency<b>",
-            title = "<b>Proportion (%)<b>",
+            title = "<b>Frequency<b>",
             titlefont = list(size = 20),
             tickfont = list(size = 18)
         ),
@@ -100,5 +101,50 @@ p = plot_ly(
 
 p
 
+# Relative frequency plot:
+p = plot_ly(
+    data = df_plot,
+    x = ~var2,
+    y = ~freq_rel,
+    type = "bar",
+    color = ~var1,
+    colors = my_palette(nrow(df_plot)),
+    text = ~var1,
+    hovertemplate = paste0(
+        "<b>Proportion: %{y:,} %<br>", 
+        cat_var_name2, ": %{x}<br>", 
+        cat_var_name1, ": %{text}</b><extra></extra>"
+    )
+) %>%
+    layout(
+        xaxis = list(
+            title = paste0("<b>", cat_var_name2, "</b>"),
+            titlefont = list(size = 20),
+            tickfont = list(size = 18),
+            categoryorder = "array"
+        ),
+        yaxis = list(
+            title = "<b>Proportion (%)<b>",
+            titlefont = list(size = 20),
+            tickfont = list(size = 18)
+        ),
+        margin = list(
+            l = 5,
+            r = 70,
+            t = 30,
+            b = 70
+        ),
+        legend = list(
+            title = list(
+                text = paste0("<br><b>", cat_var_name1, "</b>"),
+                font = list(size = 18)
+            )
+        ),
+        hoverlabel = list(font = list(size = 16)),
+        showlegend = TRUE,
+        barmode = "stack"
+    )
+
+p
 
 

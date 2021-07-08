@@ -32,11 +32,13 @@ df_plot = df %>%
     as.data.frame()
 names(df_plot) = c("var1", "var2", "freq")
 
-# Plot:
+# Plot parameters:
 n_levels_var2 = df_plot$var2 %>%
     unique() %>%
     length()
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+
+# Absolute frequency plot:
 p = ggplot(data = df_plot) + 
     geom_col(
         aes(
@@ -44,16 +46,75 @@ p = ggplot(data = df_plot) +
             y = freq,
             fill = var1
         ),
-        # position = position_stack(reverse = TRUE), # absolute
-        position = position_fill(reverse = TRUE), # relative
+        position = position_stack(reverse = TRUE),
         show.legend = TRUE
     ) +
     scale_fill_manual(
         name = cat_var_name1,
         values = my_palette(n_levels_var2)
     ) +
+    theme(
+        axis.text.x = element_text(
+            size = 14,
+            angle = 20,
+            hjust = 1,
+            vjust = 1
+        ),
+        axis.text.y = element_text(size = 14),
+        axis.title.x = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        axis.title.y = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(size = 14),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major = element_line(
+            size = 0.2,
+            linetype = "solid",
+            colour = "#eaeaea"
+        ),
+        panel.grid.minor = element_line(
+            size = 0.1,
+            linetype = "solid",
+            colour = "#eaeaea"
+        ),
+        plot.margin = margin(
+            t = 0, 
+            r = 5,
+            b = 5, 
+            l = 10,
+            unit = "pt"
+        )
+    ) +
+    xlab(cat_var_name2) +
+    ylab("Frequency")
+
+p
+
+# Relative frequency plot:
+p = ggplot(data = df_plot) + 
+    geom_col(
+        aes(
+            x = var2,
+            y = freq,
+            fill = var1
+        ),
+        position = position_fill(reverse = TRUE),
+        show.legend = TRUE
+    ) +
     scale_y_continuous(
         labels = function(x){x*100}
+    ) +
+    scale_fill_manual(
+        name = cat_var_name1,
+        values = my_palette(n_levels_var2)
     ) +
     theme(
         axis.text.x = element_text(
@@ -98,9 +159,7 @@ p = ggplot(data = df_plot) +
         )
     ) +
     xlab(cat_var_name2) +
-    # ylab("Frequency")
     ylab("Proportion (%)")
 
 p
-
 

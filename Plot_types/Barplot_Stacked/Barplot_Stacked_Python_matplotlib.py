@@ -58,12 +58,13 @@ for l1 in range(df_plot_rel.shape[0]):
     sum_lvl_var1 = sum([df_plot_rel.iloc[l1, i] for i in range(1, df_plot_rel.shape[1])])
     for l2 in range(1, df_plot_rel.shape[1]):
         df_plot_rel.iloc[l1, l2] = round(df_plot_rel.iloc[l1, l2]/sum_lvl_var1*100, 2)
-# df_plot = df_plot_rel
 
-# Plot:
+# Plot parameters:
 n_groups = df_plot.shape[1] - 1
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
+
+# Absolute frequency plot:
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
@@ -88,9 +89,6 @@ _ = ax.legend(
     title_fontsize = 16,
     loc = "upper right"
 )
-_ = ax.set_xticks(np.arange(df_plot.shape[0]))
-_ = ax.set_xticklabels(df_plot[cat_var2])
-_ = ax.set_yscale("linear")
 _ = ax.set_xlabel(
     cat_var_name2,
     fontsize = 16,
@@ -98,7 +96,6 @@ _ = ax.set_xlabel(
 )
 _ = ax.set_ylabel(
     "Frequency",
-    # "Proportion (%)",
     fontsize = 16,
     fontweight = "bold"
 )
@@ -113,6 +110,8 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
+_ = ax.set_xticks(np.arange(df_plot.shape[0]))
+_ = ax.set_xticklabels(df_plot[cat_var2])
 _ = plt.setp(
     ax.get_xticklabels(),
     ha = "right", 
@@ -122,9 +121,68 @@ _ = plt.xlim(
     left = -1,
     right = df_plot.shape[0] + 1
 )
-# _ = plt.ylim(
-#     bottom = -5,
-#     top = 105
-# )
+
+# Relative frequency plot:
+df_plot = df_plot_rel
+fig, ax = plt.subplots(
+    figsize = (20, 10),
+    tight_layout = True
+)
+bars = []
+y_sum = np.zeros(df_plot.shape[0])
+for i, (name, values) in enumerate(df_plot.iloc[:, 1:].items()):
+    for x, y in enumerate(values):
+        bar = ax.bar(
+            x = x,
+            bottom = y_sum[x],
+            height = y,
+            color = my_palette[i]
+        )
+    y_sum = df_plot.iloc[:, 1:(i + 2)].sum(axis = 1)
+    bars.append(bar[0])
+_ = ax.legend(
+    bars, 
+    df_plot.iloc[:, 1:].keys(),
+    fontsize = "large",
+    title = cat_var_name1,
+    title_fontsize = 16,
+    loc = "upper right"
+)
+_ = ax.set_xlabel(
+    cat_var_name2,
+    fontsize = 16,
+    fontweight = "bold"
+)
+_ = ax.set_ylabel(
+    "Proportion (%)",
+    fontsize = 16,
+    fontweight = "bold"
+)
+_ = ax.tick_params(
+    axis = "x", 
+    which = "major", 
+    labelsize = 16,
+    rotation = 20
+)
+_ = ax.tick_params(
+    axis = "y", 
+    which = "major", 
+    labelsize = 16
+)
+_ = ax.set_xticks(np.arange(df_plot.shape[0]))
+_ = ax.set_xticklabels(df_plot[cat_var2])
+_ = plt.setp(
+    ax.get_xticklabels(),
+    ha = "right", 
+    rotation_mode = "anchor"
+)
+_ = plt.xlim(
+    left = -1,
+    right = df_plot.shape[0] + 1
+)
+_ = plt.ylim(
+    bottom = -5,
+    top = 105
+)
 
 
