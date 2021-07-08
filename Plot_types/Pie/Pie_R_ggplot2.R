@@ -54,7 +54,6 @@ df_plot = rbind(df_plot1,
 df_plot$level = as.character(df_plot$level)
 df_plot = df_plot %>%
               dplyr::arrange(desc(level))
-
 df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
                          digits = 3)
 df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
