@@ -38,6 +38,7 @@ df_plot = df_plot.sort_values(cat_var2)
 n_groups = len(set(df_plot[cat_var1].values.tolist()))
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
+
 fig = plt.figure(
     figsize = (20, 10),
     tight_layout = True
