@@ -94,7 +94,6 @@ fig.update_yaxes(
 fig.update_layout(
     xaxis_title = "<b>" + cat_var_name + "</b>" ,
     yaxis_title = "<b>Frequency</b>",
-    legend_title = "Legend Title",
     font = dict(
         size = 18
     ),
