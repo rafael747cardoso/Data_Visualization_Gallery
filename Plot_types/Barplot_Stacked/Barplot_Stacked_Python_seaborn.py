@@ -32,12 +32,12 @@ df[variables] = df[variables].fillna("NA")
 df_plot = df
 df_plot = df_plot.sort_values(cat_var2)
 n_groups = len(set(df_plot[cat_var1].values.tolist()))
-cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
-my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
-levels_var1 = pd.crosstab(df_plot[cat_var1], df_plot[cat_var2]).sort_values(by = cat_var1).index.tolist()
-levels_var2 = list(set(df_plot[cat_var2]))
 
 # Absolute frequency plot:
+cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
+my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
+levels_var1 = pd.crosstab(df_plot[cat_var1], df_plot[cat_var2]).sort_values(by = cat_var1, ascending = True).index.tolist()
+levels_var2 = list(set(df_plot[cat_var2]))
 fig = plt.figure(
     figsize = (20, 10),
     tight_layout = True
@@ -94,6 +94,10 @@ _ = plt.xlim(
 )
 
 # Relative frequency:
+cmap = LinearSegmentedColormap.from_list("my_palette", ["#97A1D9", "#111539"])
+my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
+levels_var1 = pd.crosstab(df_plot[cat_var1], df_plot[cat_var2]).sort_values(by = cat_var1, ascending = False).index.tolist()
+levels_var2 = list(set(df_plot[cat_var2]))
 fig = plt.figure(
     figsize = (20, 10),
     tight_layout = True
@@ -106,7 +110,8 @@ ax = sns.histplot(
     stat = "probability",
     multiple = "fill",
     shrink = 0.8,
-    palette = my_palette
+    palette = my_palette,
+    alpha = 1
 )
 legend = ax.get_legend()
 handles = legend.legendHandles
@@ -129,8 +134,7 @@ _ = ax.set_xlabel(
     fontweight = "bold"
 )
 _ = ax.set_ylabel(
-    "Frequency",
-    # "Proportion (%)",
+    "Proportion (%)",
     fontsize = 16,
     fontweight = "bold"
 )
