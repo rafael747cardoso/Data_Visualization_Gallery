@@ -1,0 +1,92 @@
+
+# Paths:
+path_data = "data/"
+path_lib = "renv/library/R-4.1/x86_64-pc-linux-gnu/"
+
+# Packages:
+require(dplyr, lib = path_lib)
+require(readr, lib = path_lib)
+require(RColorBrewer, lib = path_lib)
+
+# Dataset:
+df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
+    as.data.frame()
+df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")) %>%
+    as.data.frame()
+
+# Variables:
+cat_var = "pl_tsystemref"
+cat_var_name = (df_varnames %>%
+                    dplyr::filter(var == cat_var))$var_name
+
+# Adapt the data:
+df_plot = df %>%
+    dplyr::group_by(eval(parse(text = cat_var))) %>%
+    dplyr::summarise(freq = n()) %>%
+    as.data.frame() %>%
+    dplyr::arrange(desc(freq))
+names(df_plot)[1] = "level"
+
+# Deal with NA:
+df_plot$level[which(is.na(df_plot$level))] = "NA"
+
+# Levels order:
+df_plot$level = factor(x = df_plot$level,
+                       levels = unique(df_plot$level))
+
+# Relative frequency:
+df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
+                         digits = 3)
+df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
+df_plot$freq_rel_cum = cumsum(df_plot$freq_rel)
+
+# Deal with small categories:
+max_cats_size = 97
+df_plot1 = df_plot %>%
+               dplyr::filter(freq_rel_cum < max_cats_size) %>%
+               dplyr::select(level,
+                             freq)
+df_plot2 = data.frame(
+    "level" = c("Others"),
+    "freq" = c((df_plot %>%
+                   dplyr::filter(freq_rel_cum >= max_cats_size))$freq %>%
+                   sum())
+)
+df_plot = rbind(df_plot1,
+                df_plot2)
+df_plot$freq_rel = round(df_plot$freq/sum(df_plot$freq)*100,
+                         digits = 3)
+df_plot$freq_rel_char = paste0(df_plot$freq_rel, "%")
+
+# Plot:
+log_scale_fix = 10
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+
+par(
+    mai = c(0, 0, 0, 0),
+    cex = 1.5
+)
+p = pie(
+    x = df_plot$freq,
+    labels = paste0(df_plot$level, "\n",
+                    df_plot$freq, "\n",
+                    df_plot$freq_rel_char),
+    border = "white",
+    col = my_palette(length(unique(df_plot$level))),
+    radius = 0.9,
+    init.angle = 90
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
