@@ -11,7 +11,7 @@ require(plotly, lib = path_lib)
 
 # Dataset:
 df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
-         as.data.frame() %>%
+         as.data.frame()
 attr(df, "spec") = NULL
 df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")) %>%
                   as.data.frame()
@@ -46,7 +46,10 @@ p = plot_ly(
     type = "box",
     y = ~eval(parse(text = num_var)),
     color = ~eval(parse(text = cat_var)),
-    colors = my_palette(n_levels)
+    colors = my_palette(n_levels),
+    hoveron = "boxes+points"
+    
+    
     # hovertemplate = paste0("<b>Frequency: %{y:,}<br>", 
     #                        cat_var_name2, ": %{x}<br>", 
     #                        cat_var_name1, ": %{text}</b><extra></extra>")
@@ -61,11 +64,10 @@ p = plot_ly(
         yaxis = list(
             title = paste0("<b>", num_var_name, "</b>"),
             titlefont = list(size = 20),
-            tickfont = list(size = 18),
-            type = "linear"
+            tickfont = list(size = 18)
         ),
         margin = list(
-            l = 50,
+            l = 10,
             r = 10,
             t = 10,
             b = 10
@@ -75,13 +77,5 @@ p = plot_ly(
     )
 
 p
-
-
-
-
-
-
-
-
 
 

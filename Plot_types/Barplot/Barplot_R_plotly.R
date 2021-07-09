@@ -11,7 +11,7 @@ require(plotly, lib = path_lib)
 
 # Dataset:
 df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
-         as.data.frame() %>%
+         as.data.frame()
 attr(df, "spec") = NULL
 df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")) %>%
                   as.data.frame()
