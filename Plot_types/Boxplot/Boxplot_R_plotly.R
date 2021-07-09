@@ -46,13 +46,7 @@ p = plot_ly(
     type = "box",
     y = ~eval(parse(text = num_var)),
     color = ~eval(parse(text = cat_var)),
-    colors = my_palette(n_levels),
-    hoveron = "boxes+points"
-    
-    
-    # hovertemplate = paste0("<b>Frequency: %{y:,}<br>", 
-    #                        cat_var_name2, ": %{x}<br>", 
-    #                        cat_var_name1, ": %{text}</b><extra></extra>")
+    colors = my_palette(n_levels)
 ) %>%
     layout(
         xaxis = list(
@@ -64,7 +58,8 @@ p = plot_ly(
         yaxis = list(
             title = paste0("<b>", num_var_name, "</b>"),
             titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            tickfont = list(size = 18),
+            type = "log"
         ),
         margin = list(
             l = 10,
