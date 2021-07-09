@@ -21,7 +21,7 @@ attr(df_varnames, "spec") = NULL
 cat_var = "discoverymethod"
 cat_var_name = (df_varnames %>%
                     dplyr::filter(var == cat_var))$var_name
-num_var = "sy_dist"
+num_var = "sy_gaiamag"
 num_var_name = (df_varnames %>%
                     dplyr::filter(var == num_var))$var_name
 
@@ -50,15 +50,15 @@ p = ggplot(
             fill = get(cat_var)
         )
     ) +
-    geom_boxplot(
-        outlier.colour = "#DA2E2E",
-        outlier.alpha = 0.5,
-        show.legend = FALSE
-    ) +
+    geom_boxplot() +
+    
+    
     scale_fill_manual(
+        name = cat_var_name,
         values = my_palette(n_levels)
     ) +
     scale_y_continuous(
+        # labels = function(x){format(x/log_scale_fix, scientific = TRUE)},
         labels = function(x){x/log_scale_fix},
         trans = "log10"
     ) +
@@ -77,6 +77,14 @@ p = ggplot(
         axis.title.y = element_text(
             size = 15,
             face = "bold"
+        ),
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(
+            title = "aad",
+            size = 14,
         ),
         panel.background = element_rect(fill = "white"),
         panel.grid.major = element_line(
@@ -101,5 +109,6 @@ p = ggplot(
     ylab(num_var_name)
 
 p
+
 
 
