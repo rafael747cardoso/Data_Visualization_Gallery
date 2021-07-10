@@ -40,13 +40,20 @@ df_plot[, cat_var] = factor(x = df_plot[, cat_var],
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+outlier_color = "#DA2E2E"
+median_color = "#23C16A"
 n_levels = length(unique(df_plot[, cat_var]))
 p = plot_ly(
     data = df_plot,
     type = "box",
     y = ~eval(parse(text = num_var)),
     color = ~eval(parse(text = cat_var)),
-    colors = my_palette(n_levels)
+    colors = my_palette(n_levels),
+    marker = list(
+        color = outlier_color,
+        opacity = 0.5,
+        size = 5
+    )
 ) %>%
     layout(
         xaxis = list(

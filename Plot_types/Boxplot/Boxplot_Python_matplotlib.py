@@ -40,16 +40,18 @@ fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
+outlier_color = "#DA2E2E"
+median_color = "#23C16A"
 for l, lvl in enumerate(lvls):
     edge_color = my_palette[l]
     fill_color = my_palette[l]
-    outlier_color = "#DA2E2E"
     df_lvl = df_plot.loc[df_plot.loc[:, cat_var] == lvl, num_var].values
     df_lvl = df_lvl[~np.isnan(df_lvl)]
     bp = ax.boxplot(
         x = df_lvl,
         labels = [lvl],
         positions = [l],
+        widths = 0.5,
         patch_artist = True
     )
     for patch in bp["boxes"]:
@@ -66,11 +68,12 @@ for l, lvl in enumerate(lvls):
     for patch in bp["caps"]:
         patch.set(
             color = edge_color,
-            linewidth = 2
+            linewidth = 2,
+            xdata = patch.get_xdata() + (-0.1, 0.1)
         )
     for patch in bp["medians"]:
         patch.set(
-            color = "#23C16A",
+            color = median_color,
             linewidth = 2
         )
     for patch in bp["fliers"]:
@@ -103,4 +106,5 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
+
 

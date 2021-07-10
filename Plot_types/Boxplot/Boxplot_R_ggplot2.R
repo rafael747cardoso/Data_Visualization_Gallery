@@ -40,6 +40,8 @@ df_plot[, cat_var] = factor(x = df_plot[, cat_var],
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+outlier_color = "#DA2E2E"
+median_color = "#23C16A"
 n_levels = length(unique(df_plot[, cat_var]))
 log_scale_fix = 10
 p = ggplot(
@@ -47,15 +49,33 @@ p = ggplot(
         aes(
             x = get(cat_var),
             y = get(num_var)*log_scale_fix,
-            fill = get(cat_var)
+            fill = get(cat_var),
+            color = get(cat_var)
         )
     ) +
+    stat_boxplot(
+        geom = "errorbar",
+        show.legend = FALSE
+    ) +
     geom_boxplot(
-        outlier.colour = "#DA2E2E",
+        outlier.colour = outlier_color,
         outlier.alpha = 0.5,
         show.legend = FALSE
     ) +
+    stat_summary(
+        geom = "crossbar",
+        color = median_color,
+        width = 0.75,
+        fatten = 2,
+        fun.data = function(x){c(y = median(x),
+                                 ymin = median(x),
+                                 ymax = median(x))},
+        show.legend = FALSE
+    ) +
     scale_fill_manual(
+        values = my_palette(n_levels)
+    ) +
+    scale_color_manual(
         values = my_palette(n_levels)
     ) +
     scale_y_continuous(
