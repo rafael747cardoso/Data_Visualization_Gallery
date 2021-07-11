@@ -38,12 +38,6 @@ sorted_levels = sort(unique(df_plot[, cat_var]))
 df_plot[, cat_var] = factor(x = df_plot[, cat_var],
                             levels = sorted_levels)
 
-
-# df_plot = df_plot %>%
-#              dplyr::filter(discoverymethod == "Transit")
-
-
-
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 outlier_color = "#DA2E2E"
@@ -74,7 +68,7 @@ p = ggplot(
         y = "log10"
     ) +
     scale_y_continuous(
-        breaks = breaks,
+        breaks =  10**(-10:10),
         limits = c(1, max(df_plot[, num_var], na.rm = TRUE))
     ) +
     stat_summary(
@@ -82,9 +76,11 @@ p = ggplot(
         color = median_color,
         width = 0.6,
         fatten = 2,
-        fun.data = function(x){c(y = median(x),
-                                 ymin = median(x),
-                                 ymax = median(x))},
+        fun.data = function(x){
+            c(y = median(x),
+              ymin = median(x),
+              ymax = median(x))
+        },
         show.legend = FALSE
     ) +
     scale_fill_manual(
