@@ -40,7 +40,7 @@ n_levels1 = len(lvls1)
 lvls2 = np.sort(df_plot[cat_var2].unique())
 n_levels2 = len(lvls2)
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
-my_palette = [cmap(i/n_levels1) for i in np.array(range(n_levels2))]
+my_palette = [cmap(i/n_levels2) for i in np.array(range(n_levels2))]
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
@@ -49,6 +49,7 @@ outlier_color = "#DA2E2E"
 median_color = "#23C16A"
 total_width = 0.8
 single_width = total_width/n_levels2*0.8
+bps = []
 for l1, lvl1 in enumerate(lvls1):
     for l2, lvl2 in enumerate(lvls2):
         edge_color = my_palette[l2]
@@ -99,6 +100,15 @@ for l1, lvl1 in enumerate(lvls1):
                 markersize = 5,
                 alpha = 0.5
             )
+        bps += [bp]
+ax.legend(
+    handles = [bpi["boxes"][0] for bpi in bps][:n_levels2],
+    labels = lvls2.tolist(),
+    fontsize = "large",
+    title = cat_var_name2,
+    title_fontsize = 16,
+    loc = "lower right"
+)
 _ = ax.set_yscale("log")
 _ = ax.set_xlabel(
     cat_var_name1,
