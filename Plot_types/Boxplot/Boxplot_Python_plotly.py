@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from matplotlib.colors import LinearSegmentedColormap, to_hex
+from math import floor, ceil
 
 # Display options:
 pd.set_option("display.width", 1200)
@@ -46,7 +47,7 @@ for l in range(n_levels):
             width = 0.4,
             boxpoints = "outliers",
             marker = {
-                # "outliercolor": outlier_color, # there may be a plotly.go bug here
+                "outliercolor": outlier_color, # there may be a plotly.go bug here
                 "color": my_palette[l],
                 "size": 7,
                 "opacity": 0.5
