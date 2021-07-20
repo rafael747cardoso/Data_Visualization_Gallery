@@ -71,11 +71,6 @@ for i, artist in enumerate(ax.artists):
         else:
             line.set_color(my_palette[i])
         line.set_linewidth(2)
-
-# # In the grouped where there will be a legend:
-# for legpch in ax.get_legend().get_patches():
-#     legpch.set_edgecolor(my_palette[i])
-
 _ = ax.set_yscale("log")
 _ = ax.set_xlabel(
     cat_var_name,
