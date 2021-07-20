@@ -49,9 +49,10 @@ sns.violinplot(
     dodge = False,
     palette = my_palette,
     saturation = 1,
-    ax = ax,
     width = 0.4,
-    inner = None
+    inner = None,
+    cut = 0,
+    ax = ax
 )
 for i, art in enumerate(ax.get_children()):
     if isinstance(art, PolyCollection):

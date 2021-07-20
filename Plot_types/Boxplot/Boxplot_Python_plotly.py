@@ -47,7 +47,7 @@ for l in range(n_levels):
             width = 0.4,
             boxpoints = "outliers",
             marker = {
-                "outliercolor": outlier_color, # there may be a plotly.go bug here
+                "outliercolor": outlier_color,
                 "color": my_palette[l],
                 "size": 7,
                 "opacity": 0.5
