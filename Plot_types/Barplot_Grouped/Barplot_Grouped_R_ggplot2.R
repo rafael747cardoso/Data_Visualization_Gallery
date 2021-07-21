@@ -30,7 +30,7 @@ df[which(is.na(df[cat_var2])), cat_var2] = "NA"
 
 # Frequencies within each level of the first variable:
 df_plot = df %>%
-    xtabs(formula = ~ eval(parse(text = cat_var1)) + eval(parse(text = cat_var2)) ) %>%
+    xtabs(formula = ~ eval(parse(text = cat_var1)) + eval(parse(text = cat_var2))) %>%
     as.data.frame()
 names(df_plot) = c("var1", "var2", "freq")
 

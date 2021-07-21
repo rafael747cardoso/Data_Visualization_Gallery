@@ -47,7 +47,8 @@ p = plot_ly(
     y = ~eval(parse(text = num_var)),
     color = ~eval(parse(text = cat_var)),
     colors = my_palette(n_levels),
-    spanmode = "hard"
+    spanmode = "hard",
+    alpha = 1
 ) %>%
     layout(
         xaxis = list(

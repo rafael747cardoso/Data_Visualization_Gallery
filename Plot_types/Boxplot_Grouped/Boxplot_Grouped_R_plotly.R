@@ -58,9 +58,10 @@ p = plot_ly(
     colors = my_palette(n_levels),
     marker = list(
         color = outlier_color,
-        opacity = 0.5,
+        opacity = 0.7,
         size = 5
-    )
+    ),
+    alpha = 0.5
 ) %>%
     layout(
         xaxis = list(
