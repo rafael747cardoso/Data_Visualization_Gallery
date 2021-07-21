@@ -61,7 +61,7 @@ p = plot_ly(
     meanline = list(visible = FALSE),
     points = FALSE,
     alpha = 1,
-    bandwidth = 0.5
+    scalemode = "width"
 ) %>%
     layout(
         xaxis = list(
