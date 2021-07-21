@@ -57,7 +57,11 @@ p = plot_ly(
     color = ~eval(parse(text = cat_var2)),
     colors = my_palette(n_levels2),
     spanmode = "hard",
-    alpha = 1
+    box = list(visible = FALSE),
+    meanline = list(visible = FALSE),
+    points = FALSE,
+    alpha = 1,
+    bandwidth = 0.5
 ) %>%
     layout(
         xaxis = list(
@@ -86,7 +90,7 @@ p = plot_ly(
         ),
         hoverlabel = list(font = list(size = 16)),
         showlegend = TRUE,
-        boxmode = "group"
+        violinmode = "group"
     )
 
 p
