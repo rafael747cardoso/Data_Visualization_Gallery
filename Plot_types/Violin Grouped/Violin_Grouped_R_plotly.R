@@ -37,6 +37,7 @@ df_plot = df %>%
 # Deal with NA:
 df_plot[which(is.na(df_plot[, cat_var1])), cat_var1] = "NA"
 df_plot[which(is.na(df_plot[, cat_var2])), cat_var2] = "NA"
+df_plot = df_plot[which(!is.na(df_plot[, num_var])), ]
 
 # Levels order:
 sorted_levels1 = sort(unique(df_plot[, cat_var1]))
@@ -57,11 +58,11 @@ p = plot_ly(
     color = ~eval(parse(text = cat_var2)),
     colors = my_palette(n_levels2),
     spanmode = "hard",
+    alpha = 1,
     box = list(visible = FALSE),
     meanline = list(visible = FALSE),
     points = FALSE,
-    alpha = 1,
-    scalemode = "width"
+    scalemode = "width"  ### this doesn't work ...
 ) %>%
     layout(
         xaxis = list(

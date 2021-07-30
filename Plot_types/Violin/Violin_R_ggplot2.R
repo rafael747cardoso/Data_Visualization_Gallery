@@ -53,7 +53,9 @@ p = ggplot(
     ) +
     geom_violin(
         show.legend = FALSE,
-        width = 0.8
+        width = 0.8,
+        trim = TRUE,
+        scale = "width"
     ) +
     coord_trans(
         y = "log10"
