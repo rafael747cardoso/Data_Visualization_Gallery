@@ -56,6 +56,7 @@ df_plot = df_plot.reset_index(drop = True)
 n_groups = df_plot.shape[1] - 1
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_groups) for i in np.array(range(n_groups))]
+
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True

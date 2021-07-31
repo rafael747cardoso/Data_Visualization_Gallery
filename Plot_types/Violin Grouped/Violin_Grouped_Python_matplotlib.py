@@ -28,25 +28,37 @@ num_var = "sy_dist"
 num_var_name = df_varnames.loc[(df_varnames["var"] == num_var), ["var_name"]].values[0][0]
 
 # Adapt the data:
-df_plot = df.loc[:, [cat_var, num_var]]
+df_plot = df.loc[:, [cat_var1, cat_var2, num_var]]
 
 # Deal with nan:
-df_plot[cat_var] = df_plot[cat_var].fillna("NA")
+df_plot[cat_var1] = df_plot[cat_var1].fillna("NA")
+df_plot[cat_var2] = df_plot[cat_var2].fillna("NA")
 
 # Plot:
-lvls = np.sort(df_plot[cat_var].unique())
-n_levels = len(lvls)
+lvls1 = np.sort(df_plot[cat_var1].unique())
+n_levels1 = len(lvls1)
+lvls2 = np.sort(df_plot[cat_var2].unique())
+n_levels2 = len(lvls2)
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
-my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
+my_palette = [cmap(i/n_levels2) for i in np.array(range(n_levels2))]
+
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
+
+n_bars = n_levels
+total_width = 0.8
+single_width = 0.9
+bar_width = total_width/n_levels
+bars = []
+
+
 lvls_ok = []
 for l, lvl in enumerate(lvls):
     edge_color = my_palette[l]
     fill_color = my_palette[l]
-    df_lvl = df_plot.loc[df_plot.loc[:, cat_var] == lvl, num_var].values
+    df_lvl = df_plot.loc[df_plot.loc[:, cat_var1] == lvl, num_var].values
     df_lvl = df_lvl[~np.isnan(df_lvl)]
     if len(df_lvl) == 0:
         continue
