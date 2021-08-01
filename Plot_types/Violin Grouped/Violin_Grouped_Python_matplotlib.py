@@ -47,42 +47,67 @@ fig, ax = plt.subplots(
     tight_layout = True
 )
 
-n_bars = n_levels
-total_width = 0.8
-single_width = 0.9
-bar_width = total_width/n_levels
-bars = []
-
-
 lvls_ok = []
-for l, lvl in enumerate(lvls):
-    edge_color = my_palette[l]
-    fill_color = my_palette[l]
-    df_lvl = df_plot.loc[df_plot.loc[:, cat_var1] == lvl, num_var].values
-    df_lvl = df_lvl[~np.isnan(df_lvl)]
-    if len(df_lvl) == 0:
-        continue
-    lvls_ok += [lvl]
-    bp = ax.violinplot(
-        dataset = df_lvl,
-        positions = [l],
-        widths = 0.5,
-        showmeans = False, 
-        showmedians = False,
-        showextrema = False
-    )
-    for patch in bp["bodies"]:
-        patch.set(
-            color = edge_color,
-            facecolor = fill_color,
-            linewidth = 2,
-            alpha = 1
+for l1, lvl1 in enumerate(lvls1):
+    for l2, lvl2 in enumerate(lvls2):
+        edge_color = my_palette[l2]
+        fill_color = my_palette[l2]
+        vals = df_plot.loc[(df_plot.loc[:, cat_var1] == lvl1) &
+                           (df_plot.loc[:, cat_var2] == lvl2), num_var].values
+        vals = vals[~np.isnan(vals)]
+        
+        # Even:
+        if n_levels2 % 2 == 0:
+            middle = n_levels2/2 - 1
+            delta = 1/(n_levels2 - 1)
+            if l2 < middle + 1:
+                posl1l2 = l1 - ((middle - l2)*delta + delta/2)*0.8
+            else:
+                posl1l2 = l1 + ((l2 - middle)*delta - delta/2)*0.8
+        # Odd:
+        else:
+            middle = n_levels2//2
+            delta = 0.3/(middle)
+            if l2 < middle:
+                posl1l2 = l1 - (middle - l2)*delta
+            if l2 == middle:
+                posl1l2 = l1
+            if l2 > middle:
+                posl1l2 = l1 + (l2 - middle)*delta
+        print("l1 = " + str(l1) + ", l2 = " + str(l2) + ", posl1l2 = " + str(posl1l2))
+        
+        if len(vals) == 0:
+            continue
+        lvls_ok += [lvl1]
+
+        vl = ax.violinplot(
+            dataset = vals,
+            positions = [posl1l2],
+            widths = 1/n_levels2*0.8,
+            showmeans = False, 
+            showmedians = False,
+            showextrema = False
         )
-_ = ax.set_xticks(np.arange(1, len(lvls_ok) + 1))
+        for patch in vl["bodies"]:
+            patch.set(
+                color = edge_color,
+                facecolor = fill_color,
+                linewidth = 2,
+                alpha = 1
+            )
+lvls_ok = [i for n, i in enumerate(lvls_ok) if i not in lvls_ok[:n]]
+_ = ax.set_xticks(np.arange(0, len(lvls_ok)))
 _ = ax.set_xticklabels(lvls_ok)
 _ = ax.set_yscale("log")
+_ = ax.legend(
+    lvls2,
+    fontsize = "large",
+    title = cat_var_name2,
+    title_fontsize = 16,
+    loc = "upper right"
+)
 _ = ax.set_xlabel(
-    cat_var_name,
+    cat_var_name1,
     fontsize = 16,
     fontweight = "bold"
 )
