@@ -36,6 +36,7 @@ lvls = df_plot[cat_var].unique()
 n_levels = len(lvls)
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
+
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
