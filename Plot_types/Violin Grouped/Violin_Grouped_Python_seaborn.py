@@ -53,6 +53,7 @@ sns.violinplot(
     y = num_var,
     color = cat_var2,
     hue = cat_var2,
+    hue_order = pd.crosstab(df_plot[cat_var2], df_plot[cat_var1]).sort_values(by = cat_var2).index,
     scale = "width",
     dodge = True,
     palette = my_palette,
@@ -62,11 +63,6 @@ sns.violinplot(
     cut = 0,
     ax = ax
 )
-# for i, art in enumerate(ax.get_children()):
-#     if isinstance(art, PolyCollection):
-#         print(i)
-#         art.set_edgecolor(my_palette[i//3])
-
 _ = ax.legend(
     fontsize = "large",
     title = cat_var_name2,
@@ -100,17 +96,5 @@ _ = plt.setp(
     ha = "right", 
     rotation_mode = "anchor"
 )
-
-
-
-
-
-
-
-
-
-
-
-
 
 
