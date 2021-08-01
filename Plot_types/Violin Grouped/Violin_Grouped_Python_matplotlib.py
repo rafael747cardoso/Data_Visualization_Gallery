@@ -46,7 +46,6 @@ fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
-
 lvls_ok = []
 for l1, lvl1 in enumerate(lvls1):
     for l2, lvl2 in enumerate(lvls2):
@@ -55,31 +54,31 @@ for l1, lvl1 in enumerate(lvls1):
         vals = df_plot.loc[(df_plot.loc[:, cat_var1] == lvl1) &
                            (df_plot.loc[:, cat_var2] == lvl2), num_var].values
         vals = vals[~np.isnan(vals)]
-        
-        # Even:
+        # Position for even n_levels2:
         if n_levels2 % 2 == 0:
+            scale = 0.8
             middle = n_levels2/2 - 1
             delta = 1/(n_levels2 - 1)
             if l2 < middle + 1:
-                posl1l2 = l1 - ((middle - l2)*delta + delta/2)*0.8
+                posl1l2 = l1 - ((middle - l2)*delta + delta/2)*scale
             else:
-                posl1l2 = l1 + ((l2 - middle)*delta - delta/2)*0.8
-        # Odd:
+                posl1l2 = l1 + ((l2 - middle)*delta - delta/2)*scale
+        # Position for odd n_levels2:
         else:
+            scale = 0.3
             middle = n_levels2//2
-            delta = 0.3/(middle)
+            delta = scale/(middle)
             if l2 < middle:
                 posl1l2 = l1 - (middle - l2)*delta
             if l2 == middle:
                 posl1l2 = l1
             if l2 > middle:
                 posl1l2 = l1 + (l2 - middle)*delta
-        print("l1 = " + str(l1) + ", l2 = " + str(l2) + ", posl1l2 = " + str(posl1l2))
-        
+        # Don't plot null violins:
         if len(vals) == 0:
             continue
         lvls_ok += [lvl1]
-
+        # Violin:
         vl = ax.violinplot(
             dataset = vals,
             positions = [posl1l2],
@@ -127,6 +126,5 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
-
 
 
