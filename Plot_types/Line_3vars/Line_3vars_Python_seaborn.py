@@ -43,6 +43,7 @@ ax = sns.lineplot(
     x = x_var,
     y = "y_var",
     hue = color_var,
+    marker = "o",
     linewidth = 3,
     palette = my_palette
 )
