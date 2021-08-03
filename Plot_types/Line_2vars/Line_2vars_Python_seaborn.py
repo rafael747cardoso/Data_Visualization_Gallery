@@ -45,8 +45,10 @@ ax = sns.lineplot(
     data = df_plot,
     x = "x_var",
     y = "y_var",
+    marker = "o",
+    markersize = 7,
     linewidth = 3,
-    palette = my_palette[0]
+    color = my_palette[1]    
 )
 _ = ax.set_xlabel(
     x_var_name,
