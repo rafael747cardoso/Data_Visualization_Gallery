@@ -62,7 +62,7 @@ p = plot_ly(
     box = list(visible = FALSE),
     meanline = list(visible = FALSE),
     points = FALSE,
-    scalemode = "width"  ### this doesn't work ...
+    scalemode = "width"  ### this doesn't work (R plotly bug?)
 ) %>%
     layout(
         xaxis = list(

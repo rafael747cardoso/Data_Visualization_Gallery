@@ -50,8 +50,7 @@ fig = go.Figure(
             "color": my_palette[1]
         },
         hovertemplate = "<b>" + x_var_name + ": %{x:}<br>" +
-                        y_var_name + ": %{y:}<br>" +
-                        "</b><extra></extra>"
+                        y_var_name + ": %{y:}<br></b><extra></extra>"
     )
 )
 fig.update_layout(
