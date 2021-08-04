@@ -48,7 +48,11 @@ for l, lvl in enumerate(lvls):
                 "size": 10,
                 "color": my_palette[l]
             },
-            name = lvl
+            name = lvl,
+            hovertemplate =  "<b>" + x_var_name + ": %{x:}<br>" +
+                             y_var_name + ": %{y:}<br>" + 
+                             color_var_name + ": " + lvl + 
+                             "</b><extra></extra>"
         )
     )
 fig.update_layout(
@@ -61,7 +65,7 @@ fig.update_layout(
     legend_title_text = "<b>" + color_var_name + "</b>",
     plot_bgcolor = "white",
     hoverlabel = dict(
-        font_size = 18,
+        font_size = 20,
         font_family = "Rockwell"
     )
 )

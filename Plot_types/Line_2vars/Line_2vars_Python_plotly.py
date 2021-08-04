@@ -48,7 +48,10 @@ fig = go.Figure(
         marker = {
             "size": 10,
             "color": my_palette[1]
-        }
+        },
+        hovertemplate = "<b>" + x_var_name + ": %{x:}<br>" +
+                        y_var_name + ": %{y:}<br>" +
+                        "</b><extra></extra>"
     )
 )
 fig.update_layout(
