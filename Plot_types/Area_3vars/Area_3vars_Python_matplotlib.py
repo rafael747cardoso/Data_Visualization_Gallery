@@ -26,10 +26,29 @@ color_var_name = df_varnames.loc[(df_varnames["var"] == color_var), ["var_name"]
 
 # Adapt the data:
 df_plot = df.groupby([x_var, color_var]).size().reset_index(name = "y_var")
-
-# Plot:
 lvls = df_plot[color_var].unique()
 n_levels = len(lvls)
+df_plot_h = df_plot.copy()
+l = 0
+df_plot_h = pd.merge(left = df_plot_h.loc[df_plot_h[color_var] == lvls[l], ],
+                     right = df_plot.loc[df_plot[color_var] == lvls[l + 1], ],
+                     how = "outer",
+                     left_on = x_var,
+                     right_on = x_var,
+                     suffixes = (None, "_y" + str(l + 1)))
+for l in range(1, n_levels - 1):
+    df_plot_h = pd.merge(left = df_plot_h,
+                         right = df_plot.loc[df_plot[color_var] == lvls[l + 1], ],
+                         how = "outer",
+                         left_on = x_var,
+                         right_on = x_var,
+                         suffixes = (None, "_y" + str(l + 1)))
+df_plot = pd.concat([pd.DataFrame({"yeq0": [0]*df_plot_h.shape[0]}), df_plot_h.copy()],
+                    axis = 1)
+for i in range(5, 2*n_levels + 2, 2):
+    df_plot.iloc[:, i] = df_plot.iloc[:, [j for j in range(3, i + 2, 2)]].fillna(0).sum(axis = 1)
+
+# Plot:
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 
@@ -37,18 +56,13 @@ fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
-for l, lvl in enumerate(lvls):
-    df_lvl = df_plot.loc[df_plot[color_var] == lvl, ]
-    if df_lvl.shape[0] < 2:
-        continue
-    _ = ax.plot(
-        df_lvl[x_var],
-        df_lvl["y_var"],
-        label = lvl,
-        linewidth = 3,
-        color = my_palette[l],
-        alpha = 0.8
-    )
+_ = ax.stackplot(
+    df_plot[x_var],
+    np.vstack([df_plot.iloc[:, i] for i in range(3, 2*n_levels + 3, 2)]),
+    baseline = "zero",
+    labels = lvls,
+    colors = my_palette
+)
 _ = ax.legend(
     fontsize = "large",
     title = color_var_name,
