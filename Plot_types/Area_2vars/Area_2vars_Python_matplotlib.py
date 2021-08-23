@@ -43,8 +43,6 @@ fig, ax = plt.subplots(
 _ = ax.plot(
     df_plot["x_var"],
     df_plot["y_var"],
-    marker = "o",
-    markersize = 10,
     linewidth = 5,
     color = my_palette[1],
     alpha = 0.8
