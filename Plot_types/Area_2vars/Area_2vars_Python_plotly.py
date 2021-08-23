@@ -49,6 +49,8 @@ fig = go.Figure(
             "size": 10,
             "color": my_palette[1]
         },
+        fill = "tozeroy",
+        fillcolor = my_palette[2],
         hovertemplate = "<b>" + x_var_name + ": %{x:}<br>" +
                         y_var_name + ": %{y:}<br></b><extra></extra>"
     )
