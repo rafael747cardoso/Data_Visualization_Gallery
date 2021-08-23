@@ -39,15 +39,14 @@ for l, lvl in enumerate(lvls):
         go.Scatter(
             x = df_plot[x_var][df_plot[color_var] == lvl],
             y = df_plot["y_var"][df_plot[color_var] == lvl],
-            mode = "lines+markers",
+            mode = "lines",
             line = {
                 "width": 5,
                 "color": my_palette[l]
             },
-            marker = {
-                "size": 10,
-                "color": my_palette[l]
-            },
+            fill = "tonexty",
+            fillcolor = my_palette[l],
+            stackgroup = "one",
             name = lvl,
             hovertemplate =  "<b>" + x_var_name + ": %{x:}<br>" +
                              y_var_name + ": %{y:}<br>" + 
