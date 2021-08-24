@@ -42,6 +42,7 @@ p = plot_ly(
     type = "scatter",
     mode = "lines",
     fill = "tozeroy",
+    fillcolor = my_palette(3)[3],
     line = list(
         width = 5
     ),

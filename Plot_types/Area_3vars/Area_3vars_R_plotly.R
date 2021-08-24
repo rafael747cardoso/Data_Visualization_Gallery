@@ -50,12 +50,12 @@ p = plot_ly(
     colors = my_palette(n_levels),
     text = ~color_var,
     type = "scatter",
-    mode = "lines+markers",
+    mode = "lines",
+    fill = "tozeroy",
+    stackgroup = "one",
+    split = ~color_var,
     line = list(
-        width = 5
-    ),
-    marker = list(
-        size = 10
+        width = 3
     ),
     hovertemplate = paste0("<b>", x_var_name, ": %{x}<br>",
                            y_var_name, ": %{y}<br>",

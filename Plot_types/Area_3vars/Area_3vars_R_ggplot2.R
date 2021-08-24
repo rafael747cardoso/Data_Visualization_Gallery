@@ -52,22 +52,28 @@ p = ggplot(
             x = x_var,
             y = y_var,
             color = color_var
-        )
+        ),
+        position = position_stack(reverse = TRUE),
+        show.legend = TRUE
     ) +
     geom_line(
-        show.legend = FALSE,
+        show.legend = TRUE,
         size = 2
     ) +
-    geom_point(
-        size = 3
+    geom_area(
+        aes(fill = color_var)
     ) +
-    scale_x_continuous(
-        labels = x_axis_labels,
-        breaks = x_axis_labels
+    scale_fill_manual(
+        values = my_palette(n_levels),
+        name = color_var_name
     ) +
     scale_color_manual(
         values = my_palette(n_levels),
         name = color_var_name
+    ) +
+    scale_x_continuous(
+        labels = x_axis_labels,
+        breaks = x_axis_labels
     ) +
     theme(
         axis.text.x = element_text(
