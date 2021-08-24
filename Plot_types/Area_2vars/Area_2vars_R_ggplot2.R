@@ -48,10 +48,9 @@ p = ggplot(
         color = my_palette(3)[2],
         size = 2
     ) +
-    geom_point(
-        color = my_palette(3)[2],
-        size = 3
-    ) +
+    geom_area(
+        fill = my_palette(3)[3]
+    ) + 
     scale_x_continuous(
         labels = x_axis_labels,
         breaks = x_axis_labels
