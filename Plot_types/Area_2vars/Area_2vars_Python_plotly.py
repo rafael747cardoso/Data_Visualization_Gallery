@@ -40,13 +40,9 @@ fig = go.Figure(
     data = go.Scatter(
         x = df_plot["x_var"],
         y = df_plot["y_var"],
-        mode = "lines+markers",
+        mode = "lines",
         line = {
             "width": 5,
-            "color": my_palette[1]
-        },
-        marker = {
-            "size": 10,
             "color": my_palette[1]
         },
         fill = "tozeroy",

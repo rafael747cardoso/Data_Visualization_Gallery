@@ -40,12 +40,10 @@ p = plot_ly(
     color = my_palette(3)[2],
     colors = my_palette(3)[2],
     type = "scatter",
-    mode = "lines+markers",
+    mode = "lines",
+    fill = "tozeroy",
     line = list(
         width = 5
-    ),
-    marker = list(
-        size = 10
     ),
     hovertemplate = paste0("<b>", x_var_name, ": %{x} <br> ",
                            y_var_name, ": %{y} </b><extra></extra>")
