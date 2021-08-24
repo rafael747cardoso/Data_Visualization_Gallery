@@ -43,7 +43,6 @@ lvls = unique(df_plot[, color_var])
 n_levels = length(lvls)
 my_palette = c("#c70039", "#2a7b9b", "#eddd53")
 names(my_palette) = lvls
-bubble_scale = 5
 
 p = ggplot(
         data = df_plot,
