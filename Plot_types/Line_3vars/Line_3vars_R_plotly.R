@@ -26,6 +26,7 @@ color_var = "st_metratio"
 color_var_name = (df_varnames %>%
                      dplyr::filter(var == color_var))$var_name
 
+# Adapt the data:
 df_plot = df %>%
               dplyr::group_by(eval(parse(text = x_var)),
                               eval(parse(text = color_var))) %>%
