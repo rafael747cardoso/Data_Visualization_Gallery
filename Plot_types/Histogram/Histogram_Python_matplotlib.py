@@ -43,15 +43,14 @@ _ = ax.set_xlabel(
     fontweight = "bold"
 )
 _ = ax.set_ylabel(
-    "Frequency",
+    "Counts",
     fontsize = 16,
     fontweight = "bold"
 )
 _ = ax.tick_params(
     axis = "x", 
     which = "major", 
-    labelsize = 16,
-    rotation = 20
+    labelsize = 16
 )
 _ = ax.tick_params(
     axis = "y", 
