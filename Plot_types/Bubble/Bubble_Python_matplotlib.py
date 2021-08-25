@@ -6,6 +6,7 @@ path_data = "data/"
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import re
 from matplotlib.colors import ListedColormap
 
 # Display options:
@@ -36,7 +37,7 @@ my_palette = ["#c70039", "#2a7b9b", "#eddd53"]
 df_palette = pd.DataFrame(
     {
         color_var: lvls,
-        "color_hex": my_palette
+        "color_var_num": range(n_levels)
     }
 )
 df_plot = pd.merge(left = df_plot,
@@ -46,6 +47,7 @@ df_plot = pd.merge(left = df_plot,
                    right_on = color_var)
 
 # Plot:
+bubble_scale = 500
 fig, ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
@@ -53,28 +55,35 @@ fig, ax = plt.subplots(
 bubbles = ax.scatter(
     x = df_plot[x_var],
     y = df_plot[y_var],
-    c = df_plot["color_hex"].tolist(),
-    s = df_plot[size_var]*100,
+    c = df_plot["color_var_num"],
+    cmap = ListedColormap(my_palette),
+    s = df_plot[size_var]*bubble_scale,
     alpha = 0.5
 )
+handles1, labels1 = bubbles.legend_elements(prop = "colors")
 legend1 = ax.legend(
-    *bubbles.legend_elements(),
+    handles1,
+    lvls,
     loc = "center right",
     title = color_var_name,
     title_fontsize = 16,
     fontsize = "large"
 )
 _ = ax.add_artist(legend1)
-
-handles, labels = bubbles.legend_elements(prop = "sizes")
+handles2, labels2 = bubbles.legend_elements(prop = "sizes")
+first = re.split("{|}", labels2[0])[0] + "{"
+last = "}" + re.split("{|}", labels2[0])[2]
+labels2 = [first + str(float(re.split("{|}", i)[1])/bubble_scale) + last for i in labels2]
 legend2 = ax.legend(
-    handles,
-    labels,
+    handles2,
+    labels2,
+    markerscale = 0.8,
     loc = "upper right",
     title = size_var_name,
     title_fontsize = 16,
     fontsize = "large"
 )
+_ = ax.add_artist(legend2)
 
 _ = ax.set_xlabel(
     x_var_name,
