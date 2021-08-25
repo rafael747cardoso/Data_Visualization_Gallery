@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 
 # Display options:
 pd.set_option("display.width", 1200)
