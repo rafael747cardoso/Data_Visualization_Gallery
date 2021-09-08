@@ -21,21 +21,41 @@ attr(df_varnames, "spec") = NULL
 x_var = "sy_bmag"
 x_var_name = (df_varnames %>%
                  dplyr::filter(var == x_var))$var_name
+color_var = "disc_locale"
+color_var_name = (df_varnames %>%
+                    dplyr::filter(var == color_var))$var_name
 
 # Adapt the data:
-x_vals = df[, x_var]
+df_plot = df %>%
+              dplyr::select(
+                  all_of(x_var),
+                  all_of(color_var)
+              )
 
 # Plot:
-p = ggplot() + 
-    geom_histogram(
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+n_levels = df_plot %>%
+               dplyr::select(all_of(color_var)) %>%
+               unique() %>%
+               nrow()
+
+p = ggplot(
+        data = df_plot,
         aes(
-            x = x_vals
-        ),
+            x = eval(parse(text = x_var)),
+            fill = eval(parse(text = color_var))
+        )
+    ) +
+    geom_histogram(
+        position = "identity",
+        alpha = 0.7,
         stat = "bin",
         bins = 100,
-        color = "#813DDA",
-        fill = "#813DDA",
-        show.legend = FALSE
+        show.legend = TRUE
+    ) +
+    scale_fill_manual(
+        values = my_palette(n_levels),
+        name = color_var_name
     ) +
     theme(
         axis.text.x = element_text(
@@ -53,6 +73,11 @@ p = ggplot() +
             size = 15,
             face = "bold"
         ),
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(size = 14),
         panel.background = element_rect(fill = "white"),
         panel.grid.major = element_line(
             size = 0.2,

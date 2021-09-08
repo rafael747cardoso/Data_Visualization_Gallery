@@ -31,7 +31,6 @@ df_plot = df %>%
                   all_of(x_var),
                   all_of(color_var)
               )
-x_vals = df[, x_var]
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
