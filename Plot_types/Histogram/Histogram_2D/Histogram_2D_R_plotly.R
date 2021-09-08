@@ -18,27 +18,55 @@ df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")
 attr(df_varnames, "spec") = NULL
 
 # Variables:
-x_var = "sy_bmag"
+x_var = "sy_vmag"
 x_var_name = (df_varnames %>%
                  dplyr::filter(var == x_var))$var_name
+y_var = "sy_jmag"
+y_var_name = (df_varnames %>%
+                 dplyr::filter(var == y_var))$var_name
 
 # Adapt the data:
-x_vals = df[, x_var]
+df_plot = df %>%
+              dplyr::select(all_of(x_var),
+                            all_of(y_var))
 
 # Plot:
+my_palette = list(
+    list(0, "#000000"),
+    list(0.25, "#E008F8"),
+    list(0.5, "#F81D08"),
+    list(0.75, "#F88A08"),
+    list(1, "#F7FE04")
+)
+n_binsxy = 150
+
 p = plot_ly(
-    x = x_vals,
-    type = "histogram",
-    histfunc = "count",
+    data = df_plot,
+    x = ~eval(parse(text = x_var)),
+    y = ~eval(parse(text = y_var)),
+    type = "histogram2d",
+    histfunc = "bin",
     histnorm = "",
-    nbinsx = 100,
-    color = "#813DDA",
-    colors = "#813DDA",
-    opacity = 0.9,
-    hovertemplate = paste0("<b>Counts: %{y:,}<br>",
-                           x_var_name, ": %{x:,}</b><extra></extra>")
+    nbinsx = n_binsxy,
+    nbinsy = n_binsxy,
+    xbins = list(
+        start = 0,
+        end = 20
+    ),
+    ybins = list(
+        start = 0,
+        end = 20
+    ),
+    colorscale = my_palette,
+    colorbar = list(title = "<b>Counts</b>"),
+    hovertemplate = paste0("<b>",
+                           x_var_name, ": %{x:,}<br>",
+                           y_var_name, ": %{y:,}<br>",
+                           "Counts: %{z:}</b><extra></extra>")
 ) %>%
     layout(
+        height = 800,
+        width = 800,
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
             titlefont = list(size = 20),
@@ -46,7 +74,7 @@ p = plot_ly(
             categoryorder = "array"
         ),
         yaxis = list(
-            title = paste0("<b>Counts</b>"),
+            title = paste0("<b>", y_var_name, "</b>"),
             titlefont = list(size = 20),
             tickfont = list(size = 18)
         ),
@@ -61,8 +89,5 @@ p = plot_ly(
     )
 
 p
-
-
-
 
 
