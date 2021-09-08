@@ -60,7 +60,7 @@ p = plot_ly(
     ),
     hovertemplate = paste0("<b>", x_var_name, ": %{x}<br>",
                            y_var_name, ": %{y}<br>",
-                           color_var_name, ": %{text}</b><extra></extra>")
+                           color_var_name, ": %{text}<extra></extra>")
 ) %>%
     layout(
         xaxis = list(

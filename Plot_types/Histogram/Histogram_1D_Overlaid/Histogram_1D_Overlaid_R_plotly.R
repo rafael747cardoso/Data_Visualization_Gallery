@@ -21,24 +21,42 @@ attr(df_varnames, "spec") = NULL
 x_var = "sy_bmag"
 x_var_name = (df_varnames %>%
                  dplyr::filter(var == x_var))$var_name
+color_var = "disc_locale"
+color_var_name = (df_varnames %>%
+                    dplyr::filter(var == color_var))$var_name
 
 # Adapt the data:
+df_plot = df %>%
+              dplyr::select(
+                  all_of(x_var),
+                  all_of(color_var)
+              )
 x_vals = df[, x_var]
 
 # Plot:
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
+n_levels = df_plot %>%
+               dplyr::select(all_of(color_var)) %>%
+               unique() %>%
+               nrow()
+
 p = plot_ly(
-    x = x_vals,
+    data = df_plot,
+    x = ~eval(parse(text = x_var)),
+    color = ~eval(parse(text = color_var)),
+    colors = my_palette(n_levels),
     type = "histogram",
+    text = ~eval(parse(text = color_var)),
     histfunc = "count",
     histnorm = "",
     nbinsx = 100,
-    color = "#813DDA",
-    colors = "#813DDA",
-    opacity = 0.9,
+    opacity = 0.7,
     hovertemplate = paste0("<b>Counts: %{y:,}<br>",
-                           x_var_name, ": %{x:,}</b><extra></extra>")
+                           x_var_name, ": %{x:,}</br>",
+                           color_var_name, ": %{text}<extra></extra>")
 ) %>%
     layout(
+        barmode = "overlay",
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
             titlefont = list(size = 20),
@@ -57,12 +75,16 @@ p = plot_ly(
             b = 10
         ),
         hoverlabel = list(font = list(size = 18)),
-        showlegend = FALSE
+        showlegend = TRUE,
+        legend = list(
+            title = list(
+                text = paste0("<br><b>", color_var_name, "</b>"),
+                font = list(size = 18)
+            )
+        )
     )
 
 p
-
-
 
 
 
