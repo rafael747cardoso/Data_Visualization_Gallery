@@ -18,29 +18,41 @@ df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")
 attr(df_varnames, "spec") = NULL
 
 # Variables:
-x_var = "sy_bmag"
+x_var = "sy_vmag"
 x_var_name = (df_varnames %>%
                  dplyr::filter(var == x_var))$var_name
+y_var = "sy_jmag"
+y_var_name = (df_varnames %>%
+                 dplyr::filter(var == y_var))$var_name
 
 # Adapt the data:
-x_vals = df[, x_var]
+df_plot = df %>%
+              dplyr::select(all_of(x_var),
+                            all_of(y_var))
+
+# Deal with NA:
+df_plot = df_plot[!is.na(df_plot),]
 
 # Plot:
-p = ggplot() + 
-    geom_histogram(
+my_palette = c("#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04")
+n_binsxy = 150
+
+p = ggplot(
+        data = df_plot,
         aes(
-            x = x_vals
-        ),
-        stat = "bin",
-        bins = 100,
-        color = "#813DDA",
-        fill = "#813DDA",
-        show.legend = FALSE
+            x = eval(parse(text = x_var)),
+            y = eval(parse(text = y_var))
+        )
     ) +
+    stat_bin_2d(
+        bins = n_binsxy,
+        drop = TRUE
+    ) +
+    scale_fill_gradientn(colours = my_palette) +
     theme(
         axis.text.x = element_text(
             size = 14,
-            angle = 0, 
+            angle = 0,
             hjust = 1,
             vjust = 1
         ),
@@ -65,15 +77,18 @@ p = ggplot() +
             colour = "#eaeaea"
         ),
         plot.margin = margin(
-            t = 0, 
+            t = 0,
             r = 5,
             b = 5, 
             l = 10,
             unit = "pt"
         )
     ) +
-    xlab(x_var_name) +
-    ylab("Counts")
+    labs(
+        x = x_var_name,
+        y = y_var_name,
+        fill = "Counts"
+    )
 
 p
 

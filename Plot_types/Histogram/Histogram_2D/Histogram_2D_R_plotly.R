@@ -84,8 +84,7 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
-        showlegend = FALSE
+        hoverlabel = list(font = list(size = 18))
     )
 
 p

@@ -27,10 +27,8 @@ color_var_name = (df_varnames %>%
 
 # Adapt the data:
 df_plot = df %>%
-              dplyr::select(
-                  all_of(x_var),
-                  all_of(color_var)
-              )
+              dplyr::select(all_of(x_var),
+                            all_of(color_var))
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
