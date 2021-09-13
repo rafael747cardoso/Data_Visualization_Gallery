@@ -28,7 +28,7 @@ df = df.dropna()
 x_vals = df[x_var].tolist()
 xs = np.linspace(min(x_vals), max(x_vals), 1000)
 density = gaussian_kde(x_vals)
-density.covariance_factor = lambda : .25
+density.covariance_factor = lambda : 0.3
 density._compute_covariance()
 
 # Plot:
@@ -45,7 +45,7 @@ _ = ax.plot(
 _ = ax.fill_between(
     x = xs,
     y1 = density(xs),
-    color = my_palette[2]
+    color = "#CAAFEE"
 )
 _ = ax.set_xlabel(
     x_var_name,
