@@ -1,12 +1,10 @@
-
 # Paths:
 path_data = "data/"
 
 # Packages:
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
 
 # Display options:
 pd.set_option("display.width", 1200)
@@ -21,46 +19,39 @@ df_varnames = pd.read_csv(path_data + "nasa_exoplanets_var_names.csv")
 x_var = "sy_bmag"
 x_var_name = df_varnames.loc[(df_varnames["var"] == x_var), ["var_name"]].values[0][0]
 
+# Deal with NaN:
+df = df.dropna()
+
 # Adapt the data:
 x_vals = df[x_var].tolist()
 
 # Plot:
-fig, ax = plt.subplots(
-    figsize = (20, 10),
-    tight_layout = True
+fig = ff.create_distplot(
+    hist_data = [x_vals],
+    group_labels = ["x"],
+    curve_type = "kde",
+    show_curve = True,
+    show_hist = False,
+    show_rug = False,
+    colors = ["#813DDA"]
 )
-_ = sns.kdeplot(
-    x = x_vals,
-    color = "#813DDA",
-    shade = True,
-    alpha = 0.7,
-    linewidth = 2,
-    ax = ax,
-    clip = (min(x_vals), max(x_vals)),
-    bw_method = 0.3
+fig.update_traces(
+    hovertemplate = "<b>Density: %{y:,}<br>" + 
+                    x_var_name + ": %{x:,}</b><extra></extra>"
 )
-_ = ax.set_xlabel(
-    x_var_name,
-    fontsize = 16,
-    fontweight = "bold"
+fig.update_layout(
+    xaxis_title = "<b>" + x_var_name + "</b>" ,
+    yaxis_title = "<b>Density</b>",
+    font = dict(
+        size = 18
+    ),
+    showlegend = False,
+    plot_bgcolor = "white",
+    hoverlabel = dict(
+        font_size = 18,
+        font_family = "Rockwell"
+    )
 )
-_ = ax.set_ylabel(
-    "Density",
-    fontsize = 16,
-    fontweight = "bold"
-)
-_ = ax.tick_params(
-    axis = "x", 
-    which = "major", 
-    labelsize = 16
-)
-_ = ax.tick_params(
-    axis = "y", 
-    which = "major", 
-    labelsize = 16
-)
-plt.legend(
-    [], [], 
-    frameon = False
-)
+fig.show()
+
 
