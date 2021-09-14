@@ -33,7 +33,7 @@ n_levels = len(lvls)
 cmap = LinearSegmentedColormap.from_list("my_palette", ["#111539", "#97A1D9"])
 my_palette = [cmap(i/n_levels) for i in np.array(range(n_levels))]
 
-fig = plt.figure(
+fig = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
@@ -47,7 +47,17 @@ ax = sns.histplot(
     alpha = 0.7,
     kde = False
 )
-plt.rcParams["patch.edgecolor"] = "none"
+legend = ax.get_legend()
+leg_handles = legend.legendHandles
+legend.remove()
+_ = ax.legend(
+    leg_handles,
+    lvls,
+    title = color_var_name,
+    fontsize = "large",
+    title_fontsize = 16,
+    loc = "upper right"
+)
 _ = ax.set_xlabel(
     x_var_name,
     fontsize = 16,
