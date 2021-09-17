@@ -31,8 +31,8 @@ df_plot = df[[x_var, y_var]]
 df_plot = df_plot.dropna()
 
 # Plot:
-my_palette = LinearSegmentedColormap.from_list("my_palette",
-                                               ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"])
+my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"]
+my_palette = LinearSegmentedColormap.from_list("my_palette", my_colors)
 
 n_points = 100
 X, Y = df_plot[x_var], df_plot[y_var]
@@ -51,7 +51,7 @@ fig, ax = plt.subplots(
 cs = ax.contourf(
     xx, yy, Z,
     cmap = my_palette,
-    levels = 5
+    levels = len(my_colors)
 )
 _ = ax.set_aspect("equal")
 cbar = fig.colorbar(
