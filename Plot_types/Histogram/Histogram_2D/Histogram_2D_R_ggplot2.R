@@ -5,6 +5,7 @@ path_lib = "renv/library/R-4.1/x86_64-pc-linux-gnu/"
 
 # Packages:
 require(dplyr, lib = path_lib)
+require(tidyr, lib = path_lib)
 require(readr, lib = path_lib)
 require(RColorBrewer, lib = path_lib)
 require(ggplot2, lib = path_lib)
@@ -31,7 +32,8 @@ df_plot = df %>%
                             all_of(y_var))
 
 # Deal with NA:
-df_plot = df_plot[!is.na(df_plot),]
+df_plot = df_plot %>% 
+              tidyr::drop_na()
 
 # Plot:
 my_palette = c("#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04")
