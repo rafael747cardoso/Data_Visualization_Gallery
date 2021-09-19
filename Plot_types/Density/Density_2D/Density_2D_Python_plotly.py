@@ -30,26 +30,21 @@ df_plot = df[[x_var, y_var]]
 df_plot = df_plot.dropna()
 
 # Plot:
-n_binsxy = 150
-cmap = LinearSegmentedColormap.from_list("my_palette",
-                                         ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"])
-my_palette = [to_hex(j) for j in  [cmap(i/n_binsxy) for i in np.array(range(n_binsxy))]]
-
+my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"]
 fig = go.Figure(
     data = [
-        go.Histogram2d(
+        go.Histogram2dContour(
             x = df_plot[x_var],
             y = df_plot[y_var],
-            histfunc = "count",
-            nbinsx = n_binsxy,
-            nbinsy = n_binsxy,
-            colorscale = my_palette,
+            colorscale = my_colors,
+            ncontours = 6,
+            histnorm = "probability density",
             hovertemplate = "<b>" +
                             x_var_name + ": %{x:,}<br>" +
                             y_var_name + ": %{y:,}</br>" +
-                            "Counts: %{z:, }</b><extra></extra>",
+                            "Density: %{z:, }</b><extra></extra>",
             colorbar = dict(
-                title = "<b>Counts</b>"
+                title = "<b>Density</b>"
             )
         )
     ]
