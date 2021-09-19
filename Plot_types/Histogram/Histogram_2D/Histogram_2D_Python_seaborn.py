@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap, Colormap
 
 # Display options:
 pd.set_option("display.width", 1200)
@@ -32,10 +32,14 @@ df_plot = df_plot.dropna()
 
 # Plot:
 n_binsxy = 150
-cmap = LinearSegmentedColormap.from_list("my_palette",
-                                         ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"])
-my_palette = [cmap(i/n_binsxy) for i in np.array(range(n_binsxy))]
-
+# To choose to palette params, use sns.choose_diverging_palette() in IPython notebook.
+my_palette = sns.diverging_palette(h_neg = 278,
+                                   h_pos = 63,
+                                   s = 100,
+                                   l = 50,
+                                   sep = 1,
+                                   center = "light",
+                                   as_cmap = True)
 fig, ax = plt.subplots(
     figsize = (11, 10),
     tight_layout = True
@@ -48,9 +52,11 @@ _ = sns.histplot(
     bins = (n_binsxy, n_binsxy),
     legend = True,
     cbar = True,
+    thresh = -0.01,
+    cbar_kws = {"label": "Counts"},
+    cmap = my_palette,
     ax = ax
 )
-_ = ax.collections[0].colorbar.set_label("Counts")
 _ = ax.set_xlabel(
     x_var_name,
     fontsize = 16,
