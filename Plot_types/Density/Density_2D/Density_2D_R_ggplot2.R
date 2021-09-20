@@ -37,6 +37,7 @@ df_plot = df_plot %>%
 
 # Plot:
 my_palette = c("#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04")
+my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 
 p = ggplot(
         data = df_plot,
@@ -47,10 +48,8 @@ p = ggplot(
     ) +
     geom_density_2d_filled(
         na.rm = TRUE,
-        contour_var = "density",
-        
+        contour_var = "density"
     ) +
-    # scale_fill_gradientn(colours = my_palette) +
     theme(
         axis.text.x = element_text(
             size = 14,
