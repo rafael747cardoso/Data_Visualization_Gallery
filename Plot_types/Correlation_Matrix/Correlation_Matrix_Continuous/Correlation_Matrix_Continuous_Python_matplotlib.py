@@ -23,13 +23,10 @@ num_vars = ["sy_snum", "sy_pnum", "disc_year", "pl_orbeccen", "st_teff", "st_mas
 num_vars_names = df_varnames.loc[df_varnames["var"].isin(num_vars)].copy()["var_name"].values
 
 # Adapt the data:
-df_plot = df[[x_var, y_var]]
+df_plot = df[num_vars]
 df_plot = df_plot.dropna()
 df_plot = df_plot.reset_index(drop = True)
-
 df_plot = df_plot.corr()
-
-
 
 # Plot:
 my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"]
@@ -40,7 +37,7 @@ fig, ax = plt.subplots(
     tight_layout = True
 )
 im = plt.imshow(
-    X = z_vals,
+    X = df_plot,
     aspect = "equal",
     origin = "lower",
     cmap = my_palette
@@ -51,32 +48,22 @@ cbar = fig.colorbar(
     fraction = 0.25
 )
 _ = cbar.ax.set_ylabel(
-    "Mean " + z_var_name,
+    "Pearson correlation",
     rotation = 90,
     fontsize = 14,
     fontweight = "bold"
 )
 _ = ax.set_xticks(
-    ticks = np.arange(len(x_vals))
+    ticks = np.arange(len(num_vars))
 )
 _ = ax.set_yticks(
-    ticks = np.arange(len(y_vals))
+    ticks = np.arange(len(num_vars))
 )
 _ = ax.set_xticklabels(
-    labels = x_vals
+    labels = num_vars_names
 )
 _ = ax.set_yticklabels(
-    labels = y_vals
-)
-_ = ax.set_xlabel(
-    x_var_name,
-    fontsize = 16,
-    fontweight = "bold"
-)
-_ = ax.set_ylabel(
-    y_var_name,
-    fontsize = 16,
-    fontweight = "bold"
+    labels = num_vars_names
 )
 _ = ax.tick_params(
     axis = "x", 
@@ -85,7 +72,7 @@ _ = ax.tick_params(
 )
 _ = plt.setp(
     ax.get_xticklabels(),
-    rotation = 45,
+    rotation = 20,
     ha = "right",
     rotation_mode = "anchor"
 )
