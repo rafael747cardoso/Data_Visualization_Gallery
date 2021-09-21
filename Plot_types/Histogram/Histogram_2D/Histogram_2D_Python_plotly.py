@@ -31,8 +31,8 @@ df_plot = df_plot.dropna()
 
 # Plot:
 n_binsxy = 150
-cmap = LinearSegmentedColormap.from_list("my_palette",
-                                         ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"])
+my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"]
+cmap = LinearSegmentedColormap.from_list("my_palette", my_colors)
 my_palette = [to_hex(j) for j in  [cmap(i/n_binsxy) for i in np.array(range(n_binsxy))]]
 
 fig = go.Figure(
