@@ -60,6 +60,8 @@ fig = go.Figure(
     ]
 )
 fig.update_layout(
+    height = 600,
+    width = 1900,
     xaxis_title = "<b>" + x_var_name + "</b>" ,
     yaxis_title = "<b>" + y_var_name + "</b>",
     xaxis = {
