@@ -29,12 +29,12 @@ z_var_name = df_varnames.loc[(df_varnames["var"] == z_var), ["var_name"]].values
 df_plot = df[[x_var, y_var, z_var]]
 df_plot = df_plot.dropna()
 df_plot = df_plot.reset_index(drop=True)
-x_vals = df_plot[x_var].unique().tolist()
-y_vals = df_plot[y_var].unique().tolist()
 z_vals = df_plot.pivot_table(index = y_var,
                              columns = x_var,
                              values = z_var,
-                             aggfunc = np.mean).values
+                             aggfunc = np.mean)
+x_vals = z_vals.columns.tolist()
+y_vals = z_vals.index.tolist()
 
 # Plot:
 my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04"]

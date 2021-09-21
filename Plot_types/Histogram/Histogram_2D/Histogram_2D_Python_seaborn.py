@@ -40,6 +40,7 @@ my_palette = sns.diverging_palette(h_neg = 278,
                                    sep = 1,
                                    center = "light",
                                    as_cmap = True)
+
 fig, ax = plt.subplots(
     figsize = (11, 10),
     tight_layout = True
