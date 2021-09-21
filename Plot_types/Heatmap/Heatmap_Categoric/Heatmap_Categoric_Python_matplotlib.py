@@ -46,7 +46,8 @@ fig, ax = plt.subplots(
 )
 im = plt.imshow(
     X = z_vals,
-    aspect = "auto",
+    aspect = "equal",
+    origin = "lower",
     cmap = my_palette
 )
 cbar = fig.colorbar(

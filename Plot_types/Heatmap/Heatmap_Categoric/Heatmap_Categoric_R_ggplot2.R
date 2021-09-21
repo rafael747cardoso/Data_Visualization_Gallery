@@ -60,6 +60,9 @@ p = ggplot(
         )
     ) +
     geom_tile() +
+    coord_fixed(
+        ratio = 1
+    ) +
     scale_fill_gradientn(
         colors = my_palette(100),
         na.value = "white"

@@ -50,8 +50,10 @@ _ = sns.heatmap(
     cbar = True,
     cmap = my_palette,
     cbar_kws = {"label": "Mean " + z_var_name},
+    square = True,
     ax = ax
 )
+_ = plt.ylim(0, len(y_vals))
 _ = ax.set_xlabel(
     x_var_name,
     fontsize = 16,

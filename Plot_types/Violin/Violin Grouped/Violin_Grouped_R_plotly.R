@@ -19,9 +19,9 @@ attr(df_varnames, "spec") = NULL
 
 # Variables:
 cat_var1 = "st_metratio"
-cat_var2 = "disc_locale"
 cat_var_name1 = (df_varnames %>%
                     dplyr::filter(var == cat_var1))$var_name
+cat_var2 = "disc_locale"
 cat_var_name2 = (df_varnames %>%
                      dplyr::filter(var == cat_var2))$var_name
 num_var = "sy_dist"
