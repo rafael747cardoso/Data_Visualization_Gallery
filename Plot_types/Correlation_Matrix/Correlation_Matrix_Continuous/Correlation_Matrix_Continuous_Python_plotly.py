@@ -52,8 +52,8 @@ fig = go.Figure(
     ]
 )
 fig.update_layout(
-    # height = 900,
-    # width = 1200,
+    height = 900,
+    width = 1200,
     font = dict(
         size = 18
     ),

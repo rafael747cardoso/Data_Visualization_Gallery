@@ -58,7 +58,10 @@ p = plot_ly(
     z = df_plot,
     type = "heatmap",
     colors = my_palette,
-    colorbar = list(title = paste0("<b>Mean ", z_var_name, "</b>")),
+    colorbar = list(
+        title = paste0("<b>Mean ", z_var_name, "</b>"),
+        len = 1
+    ),
     hovertemplate = paste0("<b>",
                            x_var_name, ": %{x}<br>",
                            y_var_name, ": %{y}<br>",
