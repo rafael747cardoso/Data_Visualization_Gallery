@@ -43,7 +43,8 @@ fig, ax = plt.subplots(
     y = df_plot[y_var],
     bins = [n_binsxy, n_binsxy],
     cmap = my_palette,
-    density = False
+    density = False,
+    interpolation = "gaussian"
 )
 _ = ax.set_aspect("equal")
 cbar = fig.colorbar(

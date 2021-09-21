@@ -69,6 +69,12 @@ _ = ax.tick_params(
     which = "major", 
     labelsize = 16
 )
+_ = plt.setp(
+    ax.get_xticklabels(),
+    rotation = 45,
+    ha = "right",
+    rotation_mode = "anchor"
+)
 _ = ax.tick_params(
     axis = "y", 
     which = "major", 

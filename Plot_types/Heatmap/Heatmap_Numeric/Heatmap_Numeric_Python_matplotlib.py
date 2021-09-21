@@ -48,7 +48,7 @@ im = plt.imshow(
     X = z_vals,
     aspect = "equal",
     origin = "lower",
-    cmap = my_palette
+    cmap = my_palette    
 )
 cbar = fig.colorbar(
     mappable = im,
