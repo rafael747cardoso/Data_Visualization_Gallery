@@ -59,7 +59,7 @@ x_vals = cm.index.tolist()
 y_vals = cm.columns.tolist()
 
 # Plot:
-my_colors = ["#000000", "#E008F8", "#F81D08", "#F88A08"]
+my_colors = ["#540A5C", "#E008F8", "#F81D08", "#F88A08"]
 my_palette = LinearSegmentedColormap.from_list("my_palette", my_colors)
 
 fig, ax = plt.subplots(
