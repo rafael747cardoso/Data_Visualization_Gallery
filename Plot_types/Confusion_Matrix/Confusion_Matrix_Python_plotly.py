@@ -8,7 +8,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from matplotlib.colors import LinearSegmentedColormap, to_hex
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix, roc_curve, roc_auc_score
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 
 # Display options:
