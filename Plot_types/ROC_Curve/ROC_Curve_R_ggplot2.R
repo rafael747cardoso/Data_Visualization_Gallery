@@ -77,10 +77,6 @@ auc = attr(x = ROCR::performance(prediction.obj = preds,
                                  measure = "auc"), 
            which = "y.values")[[1]]
 
-
-df_plot = df_plot %>% 
-         tidyr::drop_na()
-
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 
