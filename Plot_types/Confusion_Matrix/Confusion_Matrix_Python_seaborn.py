@@ -9,7 +9,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap, Colormap
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix, roc_curve, roc_auc_score
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 
 # Display options:
