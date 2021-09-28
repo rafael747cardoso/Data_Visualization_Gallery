@@ -83,7 +83,7 @@ for x_ind, x_val in enumerate(x_vals):
         fig.add_annotation(
             x = x_val,
             y = y_val,
-            text = str(cm[x_ind, y_ind]),
+            text = str(cm[y_ind, x_ind]),
             showarrow = False,
             font = {
                 "color": "white",
