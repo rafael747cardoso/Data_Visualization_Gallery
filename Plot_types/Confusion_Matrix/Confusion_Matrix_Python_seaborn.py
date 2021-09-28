@@ -77,6 +77,7 @@ _ = sns.heatmap(
     fmt = "d",
     ax = ax
 )
+_ = plt.ylim(0, len(y_vals))
 _ = ax.set_xlabel(
     "Predicted",
     fontsize = 16,
