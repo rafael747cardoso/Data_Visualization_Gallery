@@ -80,7 +80,8 @@ _ = ax.fill_between(
     y2 = y_fit_dw,
     color = "#5DDA52",
     alpha = 0.9,
-    label = str(nstd) + " sigma confidence interval")
+    label = str(nstd) + " sigma confidence interval"
+)
 _ = ax.legend(
     fontsize = "large",
     title_fontsize = 16,
