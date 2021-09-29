@@ -24,7 +24,7 @@ size_var = "sy_dist"
 size_var_name = df_varnames.loc[(df_varnames["var"] == size_var), ["var_name"]].values[0][0]
 
 # Adapt the data:
-df_plot = df[[cat_var, num_var]]
+df_plot = df[[cat_var, size_var]]
 df_plot = df_plot.dropna()
 df_plot = df_plot.reset_index(drop = True)
 df_plot = df_plot.groupby(by = [cat_var],
