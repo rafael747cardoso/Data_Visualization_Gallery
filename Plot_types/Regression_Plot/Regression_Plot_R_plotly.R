@@ -6,7 +6,6 @@ path_lib = "renv/library/R-4.1/x86_64-pc-linux-gnu/"
 # Packages:
 require(dplyr, lib = path_lib)
 require(readr, lib = path_lib)
-require(RColorBrewer, lib = path_lib)
 require(plotly, lib = path_lib)
 
 # Dataset:
@@ -60,7 +59,6 @@ y_fit_up = kepler_orb(x = X,
                       a = popt_up)
 y_fit_dw = kepler_orb(x = X,
                       a = popt_dw)
-
 
 # Plot:
 p = plot_ly() %>%
