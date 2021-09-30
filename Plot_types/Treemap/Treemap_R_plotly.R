@@ -18,90 +18,45 @@ df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")
 attr(df_varnames, "spec") = NULL
 
 # Variables:
-cat_var1 = "discoverymethod"
-cat_var_name1 = (df_varnames %>%
-                    dplyr::filter(var == cat_var1))$var_name
-cat_var2 = "disc_locale"
-cat_var_name2 = (df_varnames %>%
-                    dplyr::filter(var == cat_var2))$var_name
+cat_var = "discoverymethod"
+cat_var_name = (df_varnames %>%
+                   dplyr::filter(var == cat_var))$var_name
 size_var = "sy_dist"
 size_var_name = (df_varnames %>%
                     dplyr::filter(var == size_var))$var_name
-color_var = "dec"
-color_var_name = (df_varnames %>%
-                     dplyr::filter(var == color_var))$var_name
 
 # Adapt the data:
 df_plot = df %>%
-              dplyr::select(all_of(cat_var1),
-                            all_of(cat_var2),
-                            all_of(size_var),
-                            all_of(color_var))
+              dplyr::select(all_of(cat_var),
+                            all_of(size_var))
 df_plot = df_plot %>% 
               tidyr::drop_na()
-
-# df_plot = df_plot %>%
-#               dplyr::group_by(eval(parse(text = cat_var1)),
-#                               eval(parse(text = cat_var2))) %>%
-#               dplyr::summarise(size_var = mean(eval(parse(text = size_var))),
-#                                color_var = mean(eval(parse(text = color_var)))) %>%
-#               as.data.frame() %>%
-# names(df_plot) = c(cat_var1, cat_var2, size_var, color_var)
-
-
-require(treemap)
-
-treemap(
-    dtf = df_plot,
-    index = c(cat_var1, cat_var2),
-    vSize = size_var,
-    vColor = color_var,
-    title = "title here with the variables used",
-    palette = "RdBu",
-    align.labels = list(
-        c("left", "top"),
-        c("center", "center")
-    )
-)
-
-
-# df_root = data.frame(cat_var1 = "",
-#                      cat_var2 = "All",
-#                      size_var = 1000,
-#                      color_var = -90,
-#                      stringsAsFactors = FALSE)
-# names(df_root) = c(cat_var1, cat_var2, size_var, color_var)
-# df_plot = rbind(
-#     df_root,
-#     df_plot
-# )
-
+df_plot = df_plot %>%
+              dplyr::group_by(eval(parse(text = cat_var))) %>%
+              dplyr::summarise(size_var = round(mean(eval(parse(text = size_var))),
+                                                digits = 2)) %>%
+              as.data.frame()
+names(df_plot) = c(cat_var, size_var)
+df_plot$root_lvl = "All"
 
 # Plot:
 p = plot_ly(
-    # data = df_plot,
-    # parents = ~eval(parse(text = cat_var1)),
-    # labels = ~eval(parse(text = cat_var2)),
-    # values = ~eval(parse(text = size_var)),
-    
-    parents = c(  "",   "Eve",  "Eve", "Seth", "Seth",  "Eve",  "Eve",  "Awan",   "Eve"),
-    labels =  c("Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"),
-    values =  c(   15,     21,     12,     10,      2,      6,      6,       4,       4),
-    
-    # parents = df1$parents,
-    # labels = df1$labels,
-    # ids = df1$ids,
-
+    data = df_plot,
+    parents = ~root_lvl,
+    labels = ~eval(parse(text = cat_var)),
+    values = ~eval(parse(text = size_var)),
+    textinfo = "parent+label+value",
     type = "treemap",
     marker = list(
         colorscale = "Viridis"
     )
 ) %>%
     layout(
+        title = paste0("Labels: ", cat_var_name, "<br>Sizes: Mean ", size_var_name),
         margin = list(
             l = 10,
             r = 10,
-            t = 30,
+            t = 60,
             b = 10
         ),
         hoverlabel = list(
@@ -112,7 +67,5 @@ p = plot_ly(
     )
 
 p
-
-
 
 
