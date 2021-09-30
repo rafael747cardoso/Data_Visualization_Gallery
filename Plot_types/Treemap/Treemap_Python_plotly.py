@@ -23,7 +23,7 @@ cat_var2 = "disc_locale"
 cat_var_name2 = df_varnames.loc[(df_varnames["var"] == cat_var2), ["var_name"]].values[0][0]
 size_var = "sy_dist"
 size_var_name = df_varnames.loc[(df_varnames["var"] == size_var), ["var_name"]].values[0][0]
-color_var = "st_mass"
+color_var = "dec"
 color_var_name = df_varnames.loc[(df_varnames["var"] == color_var), ["var_name"]].values[0][0]
 
 # Adapt the data:
@@ -45,14 +45,35 @@ fig = px.treemap(
     color_continuous_midpoint = np.average(df[color_var],
                                            weights = df[size_var])
 )
-fig.layout.coloraxis.colorbar.title = "<b>Mean " + color_var_name + "</b>"
 fig.update_traces(
     hovertemplate = "<b>" + cat_var_name1 + " = </b>%{customdata[0]}<br>" +
                     "<b>" + cat_var_name2 + " = </b>%{customdata[1]}<br>" +
                     "<b>" + size_var_name + " = </b>%{customdata[2]:.2f}<br>" +
                     "<b>" + color_var_name + " = </b>%{customdata[3]:.2f}<br><extra></extra>"
 )
+fig.update_layout(
+    title = {
+        "text": "Labels: " + cat_var_name1 + ", " + cat_var_name2 +
+                "<br> Sizes: Mean " + size_var_name,
+        "x": 0.5,
+        "y": 0.95,
+        "xanchor": "center",
+        "yanchor": "top"
+    },
+    coloraxis = {
+        "colorbar": {
+            "title": "<b>Mean " + color_var_name + "</b>"
+        }
+    },
+    font = dict(
+        size = 18
+    ),
+    showlegend = False,
+    plot_bgcolor = "white",
+    margin = {
+        "t": 100
+    }
+)
 fig.show()
-
 
 
