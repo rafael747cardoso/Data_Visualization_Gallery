@@ -8,8 +8,8 @@ require(dplyr, lib = path_lib)
 require(tidyr, lib = path_lib)
 require(maditr, lib = path_lib)
 require(readr, lib = path_lib)
-require(RColorBrewer, lib = path_lib)
 require(ggplot2, lib = path_lib)
+require(treemapify, lib = path_lib)
 
 # Dataset:
 df = readr::read_csv(paste0(path_data, "nasa_exoplanets.csv")) %>%
@@ -39,54 +39,31 @@ df_plot = df_plot %>%
                                                 digits = 2)) %>%
               as.data.frame()
 names(df_plot) = c(cat_var, size_var)
+df_plot$groups = 1:nrow(df_plot)
 df_plot$root_lvl = "All"
 
 # Plot:
 p = ggplot(
         data = df_plot,
         aes(
-            x = x_var,
-            y = y_var,
-            fill = Freq
+            area = groups,
+            fill = sy_dist,
+            label = discoverymethod
         )
     ) +
-    geom_tile() +
-    coord_fixed(
-        ratio = 1
+    geom_treemap() +
+    geom_treemap_text(
+        colour = "white",
+        place = "centre",
+        size = 15,
+        grow = TRUE
     ) +
-    scale_fill_gradientn(
-        colors = my_palette(100),
-        na.value = "white"
-    ) +
+    scale_fill_viridis_c() +
+    
     theme(
-        axis.text.x = element_text(
-            size = 14,
-            angle = 0,
-            hjust = 1,
-            vjust = 1
-        ),
-        axis.text.y = element_text(size = 14),
-        axis.title.x = element_text(
-            size = 15,
-            face = "bold"
-        ),
-        axis.title.y = element_text(
-            size = 15,
-            face = "bold"
-        ),
         panel.background = element_rect(fill = "white"),
-        panel.grid.major = element_line(
-            size = 0.2,
-            linetype = "solid",
-            colour = "#eaeaea"
-        ),
-        panel.grid.minor = element_line(
-            size = 0.1,
-            linetype = "solid",
-            colour = "#eaeaea"
-        ),
         plot.margin = margin(
-            t = 0,
+            t = 10,
             r = 5,
             b = 5, 
             l = 10,
@@ -94,9 +71,8 @@ p = ggplot(
         )
     ) +
     labs(
-        x = x_var_name,
-        y = y_var_name,
-        fill = paste0("Mean ", z_var_name)
+        title = paste0("Labels: ", cat_var_name, "\nSizes: Mean ", size_var_name),
+        fill = paste0("Mean ", size_var_name)
     )
 
 p
