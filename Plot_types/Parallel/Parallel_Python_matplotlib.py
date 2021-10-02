@@ -52,7 +52,7 @@ ymins -= dys*0.05
 ymaxs += dys*0.05
 
 # Reverse some axes for better visual:
-axes_to_reverse = []
+axes_to_reverse = [0, 1]
 for a in axes_to_reverse:
     ymaxs[a], ymins[a] = ymins[a], ymaxs[a]
 dys = ymaxs - ymins
@@ -73,7 +73,10 @@ fig, host_ax = plt.subplots(
     figsize = (20, 10),
     tight_layout = True
 )
+
+# Make the axes:
 axes = [host_ax] + [host_ax.twinx() for i in range(ym.shape[1] - 1)]
+dic_count = 0
 for i, ax in enumerate(axes):
     ax.set_ylim(
         bottom = ymins[i],
@@ -91,6 +94,15 @@ for i, ax in enumerate(axes):
                  i/(ym.shape[1] - 1)
              )
         )
+    if df_plot.iloc[:, i].dtype.kind not in ["i", "u", "f"]:
+        dic_var_i = dics_vars[dic_count]
+        ax.set_yticks(
+            range(len(dic_var_i))
+        )
+        ax.set_yticklabels(
+            [key_val for key_val in dics_vars[dic_count].keys()]
+        )
+        dic_count += 1
 host_ax.set_xlim(
     left = 0,
     right = ym.shape[1] - 1
@@ -107,6 +119,8 @@ host_ax.tick_params(
     which = "major",
     pad = 7
 )
+
+# Make the curves:
 host_ax.spines.right.set_visible(False)
 host_ax.xaxis.tick_top()
 for j in range(ym.shape[0]):
@@ -124,19 +138,5 @@ for j in range(ym.shape[0]):
         edgecolor = color_first_cat_var
     )
     host_ax.add_patch(patch)
-
-dic_count = 0
-for i, ax in enumerate(axes):
-    if df_plot.iloc[:, i].dtype.kind not in ["i", "u", "f"]:
-        dic_var_i = dics_vars[dic_count]
-        ax.set_yticks(
-            range(len(dic_var_i))
-        )
-        ax.set_yticklabels(
-            [key_val for key_val in dics_vars[dic_count].keys()]
-        )
-        dic_count += 1
-
-
 
 
