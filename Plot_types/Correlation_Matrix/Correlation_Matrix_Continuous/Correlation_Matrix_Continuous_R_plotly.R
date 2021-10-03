@@ -19,6 +19,7 @@ df_varnames = readr::read_csv(paste0(path_data, "nasa_exoplanets_var_names.csv")
                   as.data.frame()
 attr(df_varnames, "spec") = NULL
 
+# Variables:
 num_vars = c("sy_snum", "sy_pnum", "disc_year", "pl_orbeccen", "st_teff", "st_mass", "sy_pm",
              "sy_dist", "sy_gaiamag")
 num_vars_names = (df_varnames %>%

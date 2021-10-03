@@ -18,7 +18,7 @@ pd.set_option("display.max_rows", 300)
 df = pd.read_csv(path_data + "nasa_exoplanets.csv")
 df_varnames = pd.read_csv(path_data + "nasa_exoplanets_var_names.csv")
 
-# Variables (the first variable must be categoric):
+# Variables:
 my_vars = ["discoverymethod", "pl_orbper", "st_teff", "disc_locale", "sy_gaiamag"]
 my_vars_names = reduce(pd.DataFrame.append,
                        map(lambda i: df_varnames[df_varnames["var"] == i], my_vars))
