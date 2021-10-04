@@ -22,8 +22,11 @@ attr(df_varnames, "spec") = NULL
 # Variables:
 num_vars = c("sy_snum", "sy_pnum", "disc_year", "pl_orbeccen", "st_teff", "st_mass", "sy_pm",
              "sy_dist", "sy_gaiamag")
-num_vars_names = (df_varnames %>%
-                     dplyr::filter(var %in% num_vars))$var_name
+num_vars_names = c()
+for(i in 1:length(num_vars)){
+    num_vars_names = c(num_vars_names,
+                       df_varnames$var_name[which(df_varnames$var == num_vars[i])])
+}
 
 # Adapt the data:
 df_plot = df[, num_vars]

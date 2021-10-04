@@ -25,8 +25,11 @@ resp_var_name = (df_varnames %>%
                     dplyr::filter(var == resp_var))$var_name
 pred_vars = c("sy_snum", "sy_pnum", "disc_year", "pl_orbeccen", "st_teff", "st_mass", "sy_pm",
               "sy_dist", "sy_gaiamag")
-pred_vars_name = (df_varnames %>%
-                     dplyr::filter(var %in% pred_vars))$var_name
+pred_vars_names = c()
+for(i in 1:length(pred_vars)){
+    pred_vars_names = c(pred_vars_names,
+                      df_varnames$var_name[which(df_varnames$var == pred_vars[i])])
+}
 
 # Adapt the data:
 df = df %>%

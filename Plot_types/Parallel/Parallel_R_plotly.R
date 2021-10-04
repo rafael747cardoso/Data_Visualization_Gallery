@@ -18,11 +18,16 @@ attr(df_varnames, "spec") = NULL
 
 # Variables:
 my_vars = c("discoverymethod", "pl_orbper", "st_teff", "disc_locale", "sy_gaiamag")
-my_vars_names = (df_varnames %>%
-                    dplyr::filter(var %in% my_vars))$var_name
+my_vars_names = c()
+for(i in 1:length(my_vars)){
+    my_vars_names = c(my_vars_names,
+                      df_varnames$var_name[which(df_varnames$var == my_vars[i])])
+}
 
 # Adapt the data:
-df_plot = df[, my_vars]
+df_plot = df %>%
+              dplyr::filter(pl_letter == "d")
+df_plot = df_plot[, my_vars]
 df_plot = df_plot %>% 
               tidyr::drop_na()
 
@@ -44,9 +49,8 @@ for(i in 1:length(my_vars)){
             label = my_vars_names[i],
             values = (df_plot %>%
                          dplyr::left_join(df_var,
-                                          by = eval(paste0("c('", var, "' = 'level_val')"))))$level_num
-            
-            
+                                          by = structure(names = var,
+                                                         .Data = "level_val")))$level_num
         )
     } else{
         # Numerical variables:
