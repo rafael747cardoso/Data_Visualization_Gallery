@@ -15,19 +15,19 @@ pd.set_option("display.max_columns", 300)
 pd.set_option("display.max_rows", 300)
 
 # Dataset:
-df_data = pd.read_csv(path_data + "data_province.csv",
-                      sep = ";")
-df_geo = gpd.read_file(path_data + "IDN_adm1.shp")
+df_data = pd.read_csv(path_data + "plz_einwohner.csv", 
+                      sep = ",",
+                      dtype = {"plz": str,
+                               "einwohner": int})
+df_geo = gpd.read_file(path_data + "plz-gebiete.shp/plz-gebiete.shp",
+                       dtype = {"plz": str})
 
 # Adapt the data:
-df_geo = df_geo[["NAME_1", "geometry"]]
-df_data = df_data[["province", "population_2015"]]
-
 df_map = df_geo.merge(right = df_data,
                       how = "left",
-                      left_on = "NAME_1",
-                      right_on = "province")
-color_var = "population_2015"
+                      left_on = "plz",
+                      right_on = "plz")
+color_var = "einwohner"
 
 # Map:
 my_colors = ["#EF9A9A", "#F04949", "#F10606"]
@@ -38,8 +38,9 @@ fig, ax = plt.subplots(
 )
 df_map.plot(
     column = color_var,
+    categorical=False,
     cmap = my_palette,
-    linewidth = 0.8,
+    linewidth = 0.1,
     ax = ax,
     edgecolor = "0.8"
 )
@@ -61,22 +62,14 @@ cbar = fig.colorbar(
     format = "%.0f"
 )
 _ = cbar.ax.set_xlabel(
-    "Population in 2015",
+    "Population",
     fontsize = 14,
     fontweight = "bold",
     loc = "center"
 )
-df_map["mean_coords"] = df_map["geometry"].apply(lambda x: x.representative_point().coords[:])
-df_map["mean_coords"] = [coords[0] for coords in df_map["mean_coords"]]
-for ind, row in df_map.iterrows():
-    plt.annotate(
-        text = row["province"],
-        xy = row["mean_coords"],
-        horizontalalignment = "center"
-    )
 _ = ax.axis("off")
 _ = ax.set_title(
-    "Provinces of Indonesia",
+    "Germany ZIP codes",
     fontdict = {
         "fontsize": 20,
         "fontweight": 3
