@@ -28,6 +28,8 @@ color_var = "einwohner"
 id_var = "plz"
 
 # Adapt the data:
+df_geo = df_geo.drop_duplicates(subset = id_var,
+                                keep = "first")
 df_map = df_geo.merge(right = df_data,
                       how = "left",
                       left_on = id_var,
