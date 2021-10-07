@@ -24,7 +24,6 @@ df_geo = gpd.read_file(path_data + "plz-gebiete.shp/plz-gebiete.shp",
 
 # Adapt the data:
 df_geo = df_geo.to_json()
-
 color_var = "einwohner"
 id_var = "plz"
 
