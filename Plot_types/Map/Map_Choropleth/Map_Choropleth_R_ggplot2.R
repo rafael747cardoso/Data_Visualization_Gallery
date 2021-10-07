@@ -22,8 +22,10 @@ color_var = "einwohner"
 id_var = "plz"
 
 # Adapt the data:
+df_geo = df_geo[!duplicated(df_geo@data),]
 df_geo = broom::tidy(df_geo,
-                     region = id_var)
+                     region = id_var,
+                     set_RGEOS_CheckValidity(2L))
 df_geo = df_geo %>%
              dplyr::left_join(df_data,
                          by = c("id" = id_var))
@@ -45,13 +47,13 @@ p = ggplot() +
             fill = eval(parse(text = color_var))
         ),
         color = "grey",
-        size = 0.1
+        size = 0.01
     ) +
     theme_void() +
     coord_map(
         projection = "mercator",
-        xlim = c(0, 20),
-        ylim = c(46, 56)
+        xlim = c(3, 17),
+        ylim = c(47, 55)
     ) +
     scale_fill_gradientn(
         colors = my_palette(100),

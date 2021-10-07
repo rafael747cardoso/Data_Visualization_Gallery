@@ -22,10 +22,14 @@ df_data = pd.read_csv(path_data + "plz_einwohner.csv",
 df_geo = gpd.read_file(path_data + "plz-gebiete.shp/plz-gebiete.shp",
                        dtype = {"plz": str})
 
-# Adapt the data:
-df_geo = df_geo.to_json()
+# Variables:
 color_var = "einwohner"
 id_var = "plz"
+
+# Adapt the data:
+df_geo = df_geo.drop_duplicates(subset = id_var,
+                                keep = "first")
+df_geo = df_geo.to_json()
 
 # Map:
 my_map = folium.Map(
@@ -41,10 +45,10 @@ folium.Choropleth(
     data = df_data,
     columns = [id_var, color_var],
     key_on = "feature.properties." + id_var,
-    fill_color = "OrRd",
+    fill_color = "YlOrRd",
     fill_opacity = 0.7,
-    line_opacity = 0.2,
-    line_weight = 0.3,
+    line_opacity = 0,
+    line_weight = 0,
     legend_name = "Population",
     highlight = True
 ).add_to(my_map)

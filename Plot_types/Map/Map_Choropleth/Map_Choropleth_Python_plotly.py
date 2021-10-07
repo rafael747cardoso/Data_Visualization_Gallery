@@ -23,21 +23,24 @@ df_data = pd.read_csv(path_data + "plz_einwohner.csv",
 df_geo = gpd.read_file(path_data + "plz-gebiete.shp/plz-gebiete.shp",
                        dtype = {"plz": str})
 
+# Variables:
+color_var = "einwohner"
+id_var = "plz"
+
 # Adapt the data:
 df_map = df_geo.merge(right = df_data,
                       how = "left",
-                      left_on = "plz",
-                      right_on = "plz")
-df_map = df_map.set_index("plz")
-color_var = "einwohner"
+                      left_on = id_var,
+                      right_on = id_var)
+df_map = df_map.set_index(id_var)
 
 # Map:
 n_colors = 50
-my_colors = ["#EF9A9A", "#F04949", "#F10606"]
+my_colors = ["#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300"]
 cmap = LinearSegmentedColormap.from_list("my_palette", my_colors)
 my_palette = [to_hex(j) for j in  [cmap(i/n_colors) for i in np.array(range(n_colors))]]
+customdata = [color_var]
 
-customdata = ["note", "einwohner"]
 fig = px.choropleth(
     data_frame = df_map,
     geojson = df_map["geometry"],
@@ -48,8 +51,8 @@ fig = px.choropleth(
     projection = "mercator"
 )
 fig.update_traces(
-    hovertemplate = "<b>ZIP code = </b>%{customdata[0]}<br>" +
-                    "<b>Population = </b>%{customdata[1]}<br>"
+    hovertemplate = "<b>Population = </b>%{customdata[0]}<br>",
+    marker_line_width = 0
 )
 fig.update_layout(
     title = {
@@ -77,7 +80,7 @@ fig.update_geos(
     fitbounds = "locations",
     visible = False
 )
-fig.show()
+fig.show(renderer = "browser")
 
 
 

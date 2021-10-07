@@ -22,15 +22,20 @@ df_data = pd.read_csv(path_data + "plz_einwohner.csv",
 df_geo = gpd.read_file(path_data + "plz-gebiete.shp/plz-gebiete.shp",
                        dtype = {"plz": str})
 
+# Variables:
+color_var = "einwohner"
+id_var = "plz"
+
 # Adapt the data:
+df_geo = df_geo.drop_duplicates(subset = id_var,
+                                keep = "first")
 df_map = df_geo.merge(right = df_data,
                       how = "left",
                       left_on = "plz",
                       right_on = "plz")
-color_var = "einwohner"
 
 # Map:
-my_colors = ["#EF9A9A", "#F04949", "#F10606"]
+my_colors = ["#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300"]
 my_palette = LinearSegmentedColormap.from_list("my_palette", my_colors)
 
 fig, ax = plt.subplots(
@@ -38,11 +43,11 @@ fig, ax = plt.subplots(
 )
 df_map.plot(
     column = color_var,
-    categorical=False,
+    categorical = False,
     cmap = my_palette,
     linewidth = 0.1,
-    ax = ax,
-    edgecolor = "0.8"
+    edgecolor = "#581845",
+    ax = ax
 )
 sm = plt.cm.ScalarMappable(
     cmap = my_palette,
