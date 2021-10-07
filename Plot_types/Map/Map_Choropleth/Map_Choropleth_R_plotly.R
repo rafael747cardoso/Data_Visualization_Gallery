@@ -37,9 +37,9 @@ my_palette = colorRampPalette(colors = my_colors)
 p = plot_ly(
         type = "choropleth",
         geojson = geo_data,
-        locations = df_data$plz,
-        z = df_data$einwohner,
-        text = df_data$plz,
+        locations = df_data[, id_var],
+        z = df_data[, color_var],
+        text = df_data[, id_var],
         featureidkey = paste0("properties.", id_var),
         colors = my_palette(100),
         marker = list(
