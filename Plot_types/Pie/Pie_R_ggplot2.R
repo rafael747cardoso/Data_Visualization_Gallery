@@ -29,8 +29,6 @@ df_plot = df %>%
     as.data.frame() %>%
     dplyr::arrange(desc(freq))
 names(df_plot)[1] = "level"
-
-# Deal with NA:
 df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Relative frequency:
@@ -83,7 +81,9 @@ p = ggplot(
         start = 0
     ) +
     theme_void() +
-    theme(legend.position = "none") +
+    theme(
+        legend.position = "none"
+    ) +
     geom_text(
         aes(
             x = 1.7,

@@ -70,8 +70,12 @@ p = ggplot(
             label.hjust = 0.5            
         )
     ) +
-    scale_x_discrete(labels = num_vars_names) +
-    scale_y_discrete(labels = num_vars_names) +
+    scale_x_discrete(
+        labels = num_vars_names
+    ) +
+    scale_y_discrete(
+        labels = num_vars_names
+    ) +
     theme(
         legend.title = element_text(
             size = 15,
@@ -86,8 +90,12 @@ p = ggplot(
             hjust = 1,
             vjust = 1
         ),
-        axis.text.y = element_text(size = 14),
-        panel.background = element_rect(fill = "white"),
+        axis.text.y = element_text(
+            size = 14
+        ),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         panel.grid.major = element_line(
             size = 0.2,
             linetype = "solid",

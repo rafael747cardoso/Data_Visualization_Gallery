@@ -29,8 +29,6 @@ num_var_name = (df_varnames %>%
 df_plot = df %>%
               dplyr::select(cat_var,
                             num_var)
-
-# Deal with NA:
 df_plot[which(is.na(df_plot[, cat_var])), cat_var] = "NA"
 
 # Levels order:
@@ -42,25 +40,33 @@ df_plot[, cat_var] = factor(x = df_plot[, cat_var],
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 n_levels = length(unique(df_plot[, cat_var]))
 p = plot_ly(
-    data = df_plot,
-    type = "violin",
-    y = ~eval(parse(text = num_var)),
-    color = ~eval(parse(text = cat_var)),
-    colors = my_palette(n_levels),
-    spanmode = "hard",
-    alpha = 1
-) %>%
+        data = df_plot,
+        type = "violin",
+        y = ~eval(parse(text = num_var)),
+        color = ~eval(parse(text = cat_var)),
+        colors = my_palette(n_levels),
+        spanmode = "hard",
+        alpha = 1
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", cat_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", num_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             type = "log"
         ),
         margin = list(
@@ -69,7 +75,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 16)),
+        hoverlabel = list(
+            font = list(
+                size = 16
+            )
+        ),
         showlegend = FALSE
     )
 

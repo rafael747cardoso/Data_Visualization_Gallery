@@ -53,33 +53,41 @@ df_plot = df_plot %>%
 my_palette = c("#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04")
 
 p = plot_ly(
-    x = x_vals,
-    y = y_vals,
-    z = df_plot,
-    type = "heatmap",
-    colors = my_palette,
-    colorbar = list(
-        title = paste0("<b>Mean ", z_var_name, "</b>"),
-        len = 1
-    ),
-    hovertemplate = paste0("<b>",
-                           x_var_name, ": %{x}<br>",
-                           y_var_name, ": %{y}<br>",
-                           "Mean ", z_var_name, ": %{z:}</b><extra></extra>")
-) %>%
+        x = x_vals,
+        y = y_vals,
+        z = df_plot,
+        type = "heatmap",
+        colors = my_palette,
+        colorbar = list(
+            title = paste0("<b>Mean ", z_var_name, "</b>"),
+            len = 1
+        ),
+        hovertemplate = paste0("<b>",
+                               x_var_name, ": %{x}<br>",
+                               y_var_name, ": %{y}<br>",
+                               "Mean ", z_var_name, ": %{z:}</b><extra></extra>")
+    ) %>%
     layout(
         height = 800,
         width = 800,
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", y_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -87,7 +95,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18))
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        )
     )
 
 p

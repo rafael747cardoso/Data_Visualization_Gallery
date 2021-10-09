@@ -33,8 +33,6 @@ df_plot = df %>%
               dplyr::select(cat_var1,
                             cat_var2,
                             num_var)
-
-# Deal with NA:
 df_plot[which(is.na(df_plot[, cat_var1])), cat_var1] = "NA"
 df_plot[which(is.na(df_plot[, cat_var2])), cat_var2] = "NA"
 df_plot = df_plot[which(!is.na(df_plot[, num_var])), ]
@@ -51,30 +49,42 @@ df_plot[, cat_var2] = factor(x = df_plot[, cat_var2],
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 n_levels2 = length(unique(df_plot[, cat_var2]))
 p = plot_ly(
-    data = df_plot,
-    type = "violin",
-    x = ~eval(parse(text = cat_var1)),
-    y = ~eval(parse(text = num_var)),
-    color = ~eval(parse(text = cat_var2)),
-    colors = my_palette(n_levels2),
-    spanmode = "hard",
-    alpha = 1,
-    box = list(visible = FALSE),
-    meanline = list(visible = FALSE),
-    points = FALSE,
-    scalemode = "width"  ### this doesn't work (R plotly bug?)
-) %>%
+        data = df_plot,
+        type = "violin",
+        x = ~eval(parse(text = cat_var1)),
+        y = ~eval(parse(text = num_var)),
+        color = ~eval(parse(text = cat_var2)),
+        colors = my_palette(n_levels2),
+        spanmode = "hard",
+        alpha = 1,
+        box = list(
+            visible = FALSE
+        ),
+        meanline = list(
+            visible = FALSE
+        ),
+        points = FALSE,
+        scalemode = "width"  ### this doesn't work (R plotly bug?)
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", cat_var_name1, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", num_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             type = "log"
         ),
         margin = list(
@@ -86,10 +96,16 @@ p = plot_ly(
         legend = list(
             title = list(
                 text = paste0("<br><b>", cat_var_name2, "</b>"),
-                font = list(size = 18)
+                font = list(
+                    size = 18
+                )
             )
         ),
-        hoverlabel = list(font = list(size = 16)),
+        hoverlabel = list(
+            font = list(
+                size = 16
+            )
+        ),
         showlegend = TRUE,
         violinmode = "group"
     )

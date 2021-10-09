@@ -29,8 +29,6 @@ df_plot = df %>%
     as.data.frame() %>%
     dplyr::arrange(desc(freq))
 names(df_plot)[1] = "level"
-
-# Deal with NA:
 df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Levels order:
@@ -72,7 +70,9 @@ p = ggplot(data = df_plot) +
         size = 5,
         vjust = -0.2
     ) +
-    scale_fill_manual(values = my_palette(nrow(df_plot))) +
+    scale_fill_manual(
+        values = my_palette(nrow(df_plot))
+    ) +
     geom_line(
         aes(
             x = ind,
@@ -112,7 +112,9 @@ p = ggplot(data = df_plot) +
             hjust = 1,
             vjust = 1
         ),
-        axis.text.y = element_text(size = 14),
+        axis.text.y = element_text(
+            size = 14
+        ),
         axis.title.x = element_text(
             size = 15,
             face = "bold"
@@ -121,7 +123,9 @@ p = ggplot(data = df_plot) +
             size = 15,
             face = "bold"
         ),
-        panel.background = element_rect(fill = "white"),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         panel.grid.major = element_line(
             size = 0.2,
             linetype = "solid",

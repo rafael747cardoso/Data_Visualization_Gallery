@@ -122,13 +122,21 @@ p = plot_ly() %>%
     layout(
         xaxis = list(
             title = paste0("<b>", pred_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         yaxis = list(
             title = paste0("<b>", resp_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -136,7 +144,11 @@ p = plot_ly() %>%
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = TRUE
     )
 

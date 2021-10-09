@@ -98,7 +98,9 @@ p = ggplot(
         legend.text = element_text(
             size = 13
         ),
-        panel.background = element_rect(fill = "white"),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         plot.margin = margin(
             t = 10,
             r = 5,

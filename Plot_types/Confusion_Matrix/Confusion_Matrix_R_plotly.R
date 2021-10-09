@@ -117,14 +117,22 @@ p = p %>%
         width = 800,
         xaxis = list(
             title = paste0("<b>Predicted</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>Actual</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -132,7 +140,11 @@ p = p %>%
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18))
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        )
     )
 
 p

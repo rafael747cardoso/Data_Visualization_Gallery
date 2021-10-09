@@ -28,8 +28,6 @@ df_plot = df %>%
     as.data.frame() %>%
     dplyr::arrange(desc(freq))
 names(df_plot)[1] = "level"
-
-# Deal with NA:
 df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Levels order:

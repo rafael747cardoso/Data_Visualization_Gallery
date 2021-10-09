@@ -22,36 +22,43 @@ x_var = "sy_bmag"
 x_var_name = (df_varnames %>%
                  dplyr::filter(var == x_var))$var_name
 
-# Deal with NA:
-df = df[!is.na(df[, x_var]), ]
-
 # Adapt the data:
+df = df %>% 
+         tidyr::drop_na()
 dens = density(df[, x_var])
 
 # Plot:
 p = plot_ly(
-    x = dens$x,
-    y = dens$y,
-    type = "scatter",
-    mode = "lines",
-    fill = "tozeroy",
-    color = "#813DDA",
-    colors = "#813DDA",
-    opacity = 0.9,
-    hovertemplate = paste0("<b>", x_var_name, ": %{x:,}<br>",
-                           "Density: %{y:,}</b><extra></extra>")
-) %>%
+        x = dens$x,
+        y = dens$y,
+        type = "scatter",
+        mode = "lines",
+        fill = "tozeroy",
+        color = "#813DDA",
+        colors = "#813DDA",
+        opacity = 0.9,
+        hovertemplate = paste0("<b>", x_var_name, ": %{x:,}<br>",
+                               "Density: %{y:,}</b><extra></extra>")
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>Density</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -59,7 +66,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = FALSE
     )
 

@@ -41,41 +41,49 @@ my_palette = list(
 n_binsxy = 150
 
 p = plot_ly(
-    data = df_plot,
-    x = ~eval(parse(text = x_var)),
-    y = ~eval(parse(text = y_var)),
-    type = "histogram2dcontour",
-    histnorm = "probability density",
-    nbinsx = n_binsxy,
-    nbinsy = n_binsxy,
-    xbins = list(
-        start = 0,
-        end = 20
-    ),
-    ybins = list(
-        start = 0,
-        end = 20
-    ),
-    colorscale = my_palette,
-    colorbar = list(title = "<b>Density</b>"),
-    hovertemplate = paste0("<b>",
-                           x_var_name, ": %{x:,}<br>",
-                           y_var_name, ": %{y:,}<br>",
-                           "Density: %{z:}</b><extra></extra>")
-) %>%
+        data = df_plot,
+        x = ~eval(parse(text = x_var)),
+        y = ~eval(parse(text = y_var)),
+        type = "histogram2dcontour",
+        histnorm = "probability density",
+        nbinsx = n_binsxy,
+        nbinsy = n_binsxy,
+        xbins = list(
+            start = 0,
+            end = 20
+        ),
+        ybins = list(
+            start = 0,
+            end = 20
+        ),
+        colorscale = my_palette,
+        colorbar = list(title = "<b>Density</b>"),
+        hovertemplate = paste0("<b>",
+                               x_var_name, ": %{x:,}<br>",
+                               y_var_name, ": %{y:,}<br>",
+                               "Density: %{z:}</b><extra></extra>")
+    ) %>%
     layout(
         height = 800,
         width = 800,
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", y_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -83,7 +91,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18))
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        )
     )
 
 p

@@ -29,9 +29,8 @@ color_var_name = (df_varnames %>%
 df_plot = df %>%
               dplyr::select(all_of(x_var),
                             all_of(color_var))
-
-# Deal with NA:
-df_plot = df_plot[!is.na(df_plot[, x_var]), ]
+df_plot = df_plot %>% 
+              tidyr::drop_na(x_var)
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
@@ -67,14 +66,22 @@ p = p %>%
     layout(
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>Density</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -82,12 +89,18 @@ p = p %>%
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = TRUE,
         legend = list(
             title = list(
                 text = paste0("<br><b>", color_var_name, "</b>"),
-                font = list(size = 18)
+                font = list(
+                    size = 18
+                )
             )
         )
     )

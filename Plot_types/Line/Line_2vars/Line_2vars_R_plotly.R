@@ -34,33 +34,41 @@ df_plot = df %>%
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
 
 p = plot_ly(
-    data = df_plot,
-    x = ~x_var,
-    y = ~y_var,
-    color = my_palette(3)[2],
-    colors = my_palette(3)[2],
-    type = "scatter",
-    mode = "lines+markers",
-    line = list(
-        width = 5
-    ),
-    marker = list(
-        size = 10
-    ),
-    hovertemplate = paste0("<b>", x_var_name, ": %{x} <br> ",
-                           y_var_name, ": %{y} </b><extra></extra>")
-) %>%
+        data = df_plot,
+        x = ~x_var,
+        y = ~y_var,
+        color = my_palette(3)[2],
+        colors = my_palette(3)[2],
+        type = "scatter",
+        mode = "lines+markers",
+        line = list(
+            width = 5
+        ),
+        marker = list(
+            size = 10
+        ),
+        hovertemplate = paste0("<b>", x_var_name, ": %{x} <br> ",
+                               y_var_name, ": %{y} </b><extra></extra>")
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", y_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -68,7 +76,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = FALSE
     )
 

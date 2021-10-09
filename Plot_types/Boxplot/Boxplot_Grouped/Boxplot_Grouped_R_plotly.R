@@ -50,30 +50,38 @@ median_color = "#23C16A"
 n_levels = length(unique(df_plot[, cat_var2]))
 
 p = plot_ly(
-    data = df_plot,
-    type = "box",
-    y = ~eval(parse(text = num_var)),
-    x = ~eval(parse(text = cat_var1)),
-    color = ~eval(parse(text = cat_var2)),
-    colors = my_palette(n_levels),
-    marker = list(
-        color = outlier_color,
-        opacity = 0.7,
-        size = 5
-    ),
-    alpha = 0.5
-) %>%
+        data = df_plot,
+        type = "box",
+        y = ~eval(parse(text = num_var)),
+        x = ~eval(parse(text = cat_var1)),
+        color = ~eval(parse(text = cat_var2)),
+        colors = my_palette(n_levels),
+        marker = list(
+            color = outlier_color,
+            opacity = 0.7,
+            size = 5
+        ),
+        alpha = 0.5
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", cat_var_name1, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>", num_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             type = "log"
         ),
         margin = list(
@@ -88,7 +96,11 @@ p = plot_ly(
                 font = list(size = 18)
             )
         ),
-        hoverlabel = list(font = list(size = 16)),
+        hoverlabel = list(
+            font = list(
+                size = 16
+            )
+        ),
         showlegend = TRUE,
         boxmode = "group"
     )

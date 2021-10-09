@@ -29,8 +29,6 @@ df_plot = df %>%
     as.data.frame() %>%
     dplyr::arrange(desc(freq))
 names(df_plot)[1] = "level"
-
-# Deal with NA:
 df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Levels order:
@@ -93,16 +91,24 @@ p = plot_ly(
         legend = list(
             title = list(
                 text = cat_var_name,
-                font = list(size = 20)
+                font = list(
+                    size = 20
+                )
             ),
-            font = list(size = 18),
+            font = list(
+                size = 18
+            ),
             y = 0.9
         ),
         margin = list(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 16))
+        hoverlabel = list(
+            font = list(
+                size = 16
+            )
+        )
     )
 
 p

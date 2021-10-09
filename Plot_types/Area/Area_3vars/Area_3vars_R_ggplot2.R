@@ -35,9 +35,8 @@ df_plot = df %>%
               dplyr::rename("x_var" = "eval(parse(text = x_var))",
                             "color_var" = "eval(parse(text = color_var))")
 df_plot$color_var = as.factor(df_plot$color_var)
-
-# Deal with NA:
-df_plot = df_plot[!is.na(df_plot[, "color_var"]), ]
+df_plot = df_plot %>% 
+              tidyr::drop_na("color_var")
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))

@@ -24,8 +24,6 @@ cat_var_name1 = (df_varnames %>%
                     dplyr::filter(var == cat_var1))$var_name
 cat_var_name2 = (df_varnames %>%
                      dplyr::filter(var == cat_var2))$var_name
-
-# Deal with NA:
 df[which(is.na(df[cat_var2])), cat_var2] = "NA"
 
 # Frequencies within each level of the first variable:
@@ -48,7 +46,9 @@ p = ggplot(data = df_plot) +
             fill = var1
         ),
         width = 0.8,
-        position = position_dodge(width = 0.9),
+        position = position_dodge(
+            width = 0.9
+        ),
         stat = "identity",
         show.legend = TRUE
     ) +
@@ -67,7 +67,9 @@ p = ggplot(data = df_plot) +
             hjust = 1,
             vjust = 1
         ),
-        axis.text.y = element_text(size = 14),
+        axis.text.y = element_text(
+            size = 14
+        ),
         axis.title.x = element_text(
             size = 15,
             face = "bold"
@@ -83,7 +85,9 @@ p = ggplot(data = df_plot) +
         legend.text = element_text(
             size = 14
         ),
-        panel.background = element_rect(fill = "white"),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         panel.grid.major = element_line(
             size = 0.2,
             linetype = "solid",

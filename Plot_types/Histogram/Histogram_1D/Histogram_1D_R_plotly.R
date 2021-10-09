@@ -27,28 +27,36 @@ x_vals = df[, x_var]
 
 # Plot:
 p = plot_ly(
-    x = x_vals,
-    type = "histogram",
-    histfunc = "count",
-    histnorm = "",
-    nbinsx = 100,
-    color = "#813DDA",
-    colors = "#813DDA",
-    opacity = 0.9,
-    hovertemplate = paste0("<b>Counts: %{y:,}<br>",
-                           x_var_name, ": %{x:,}</b><extra></extra>")
-) %>%
+        x = x_vals,
+        type = "histogram",
+        histfunc = "count",
+        histnorm = "",
+        nbinsx = 100,
+        color = "#813DDA",
+        colors = "#813DDA",
+        opacity = 0.9,
+        hovertemplate = paste0("<b>Counts: %{y:,}<br>",
+                               x_var_name, ": %{x:,}</b><extra></extra>")
+    ) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>Counts</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -56,7 +64,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = FALSE
     )
 

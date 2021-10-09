@@ -38,32 +38,40 @@ n_levels = df_plot %>%
                nrow()
 
 p = plot_ly(
-    data = df_plot,
-    x = ~eval(parse(text = x_var)),
-    color = ~eval(parse(text = color_var)),
-    colors = my_palette(n_levels),
-    type = "histogram",
-    text = ~eval(parse(text = color_var)),
-    histfunc = "count",
-    histnorm = "",
-    nbinsx = 100,
-    opacity = 0.7,
-    hovertemplate = paste0("<b>Counts: %{y:,}<br>",
-                           x_var_name, ": %{x:,}</br>",
-                           color_var_name, ": %{text}<extra></extra>")
-) %>%
+        data = df_plot,
+        x = ~eval(parse(text = x_var)),
+        color = ~eval(parse(text = color_var)),
+        colors = my_palette(n_levels),
+        type = "histogram",
+        text = ~eval(parse(text = color_var)),
+        histfunc = "count",
+        histnorm = "",
+        nbinsx = 100,
+        opacity = 0.7,
+        hovertemplate = paste0("<b>Counts: %{y:,}<br>",
+                               x_var_name, ": %{x:,}</br>",
+                               color_var_name, ": %{text}<extra></extra>")
+    ) %>%
     layout(
         barmode = "overlay",
         xaxis = list(
             title = paste0("<b>", x_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = paste0("<b>Counts</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18)
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -71,12 +79,18 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18)),
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        ),
         showlegend = TRUE,
         legend = list(
             title = list(
                 text = paste0("<br><b>", color_var_name, "</b>"),
-                font = list(size = 18)
+                font = list(
+                    size = 18
+                )
             )
         )
     )

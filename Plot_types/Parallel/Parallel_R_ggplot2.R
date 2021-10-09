@@ -49,7 +49,9 @@ p = ggplot(
         )
     ) +
     geom_pcp(
-        aes(colour = eval(parse(text = color_var))),
+        aes(
+            colour = eval(parse(text = color_var))
+        ),
         alpha = 0.7,
         boxwidth = 0.1,
         method = "uniminmax"

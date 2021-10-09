@@ -42,7 +42,9 @@ p = ggplot() +
             hjust = 1,
             vjust = 1
         ),
-        axis.text.y = element_text(size = 14),
+        axis.text.y = element_text(
+            size = 14
+        ),
         axis.title.x = element_text(
             size = 15,
             face = "bold"
@@ -51,7 +53,9 @@ p = ggplot() +
             size = 15,
             face = "bold"
         ),
-        panel.background = element_rect(fill = "white"),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         panel.grid.major = element_line(
             size = 0.2,
             linetype = "solid",

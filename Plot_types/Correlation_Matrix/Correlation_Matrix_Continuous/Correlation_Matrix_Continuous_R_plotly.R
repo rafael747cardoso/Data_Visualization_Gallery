@@ -43,32 +43,36 @@ df_plot = melt(data = df_plot,
 my_palette = c("#000000", "#E008F8", "#F81D08", "#F88A08", "#F7FE04")
 
 p = plot_ly(
-    data = df_plot,
-    x = ~Var1,
-    y = ~Var2,
-    z = ~Vars_corr,
-    type = "heatmap",
-    colors = my_palette,
-    colorbar = list(
-        title = "<b>Pearson correlation</b>",
-        len = 1
-    ),
-    hovertemplate = paste0("<b>",
-                           "%{x}<br>",
-                           "%{y}<br>",
-                           "Correlation: %{z:}</b><extra></extra>")
-) %>%
+        data = df_plot,
+        x = ~Var1,
+        y = ~Var2,
+        z = ~Vars_corr,
+        type = "heatmap",
+        colors = my_palette,
+        colorbar = list(
+            title = "<b>Pearson correlation</b>",
+            len = 1
+        ),
+        hovertemplate = paste0("<b>",
+                               "%{x}<br>",
+                               "%{y}<br>",
+                               "Correlation: %{z:}</b><extra></extra>")
+    ) %>%
     layout(
         height = 900,
         width = 1200,
         xaxis = list(
             title = "",
-            tickfont = list(size = 18),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = "",
-            tickfont = list(size = 18)
+            tickfont = list(
+                size = 18
+            )
         ),
         margin = list(
             l = 10,
@@ -76,7 +80,11 @@ p = plot_ly(
             t = 10,
             b = 10
         ),
-        hoverlabel = list(font = list(size = 18))
+        hoverlabel = list(
+            font = list(
+                size = 18
+            )
+        )
     )
 
 p

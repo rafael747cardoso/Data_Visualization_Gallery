@@ -29,8 +29,6 @@ df_plot = df %>%
     as.data.frame() %>%
     dplyr::arrange(desc(freq))
 names(df_plot)[1] = "level"
-
-# Deal with NA:
 df_plot$level[which(is.na(df_plot$level))] = "NA"
 
 # Levels order:
@@ -59,8 +57,10 @@ p = plot_ly(data = df_plot) %>%
         text = ~freq_rel_char,
         texttemplate = "%{text}",
         textposition = "outside",
-        textfont = list(size = 20,
-                        color = my_palette(3)[2]),
+        textfont = list(
+            size = 20,
+            color = my_palette(3)[2]
+        ),
         color = ~level,
         colors = my_palette(nrow(df_plot)),
         hovertemplate = "<b>Frequency: %{y:,}</b><extra></extra>"
@@ -90,14 +90,22 @@ p = plot_ly(data = df_plot) %>%
     layout(
         xaxis = list(
             title = paste0("<b>", cat_var_name, "</b>"),
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             categoryorder = "array"
         ),
         yaxis = list(
             title = "<b>Frequency</b>",
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             type = "linear"
         ),
         yaxis2 = list(
@@ -105,8 +113,12 @@ p = plot_ly(data = df_plot) %>%
             overlaying = "y",
             side = "right",
             title = "<b>Cumulative frequency</b>",
-            titlefont = list(size = 20),
-            tickfont = list(size = 18),
+            titlefont = list(
+                size = 20
+            ),
+            tickfont = list(
+                size = 18
+            ),
             type = "linear"
         ),
         margin = list(
@@ -115,7 +127,11 @@ p = plot_ly(data = df_plot) %>%
             t = 5,
             b = 70
         ),
-        hoverlabel = list(font = list(size = 16)),
+        hoverlabel = list(
+            font = list(
+                size = 16
+            )
+        ),
         showlegend = FALSE
     )
 

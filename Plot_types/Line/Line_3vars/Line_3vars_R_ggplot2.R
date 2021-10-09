@@ -35,9 +35,8 @@ df_plot = df %>%
               dplyr::rename("x_var" = "eval(parse(text = x_var))",
                             "color_var" = "eval(parse(text = color_var))")
 df_plot$color_var = as.factor(df_plot$color_var)
-
-# Deal with NA:
-df_plot = df_plot[!is.na(df_plot[, "color_var"]), ]
+df_plot = df_plot %>% 
+              tidyr::drop_na("color_var")
 
 # Plot:
 my_palette = colorRampPalette(c("#111539", "#97A1D9"))
@@ -76,7 +75,9 @@ p = ggplot(
             hjust = 0.5,
             vjust = 1
         ),
-        axis.text.y = element_text(size = 14),
+        axis.text.y = element_text(
+            size = 14
+        ),
         axis.title.x = element_text(
             size = 15,
             face = "bold"
@@ -89,8 +90,12 @@ p = ggplot(
             size = 15,
             face = "bold"
         ),
-        legend.text = element_text(size = 14),
-        panel.background = element_rect(fill = "white"),
+        legend.text = element_text(
+            size = 14
+        ),
+        panel.background = element_rect(
+            fill = "white"
+        ),
         panel.grid.major = element_line(
             size = 0.2,
             linetype = "solid",
