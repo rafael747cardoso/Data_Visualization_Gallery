@@ -50,8 +50,28 @@ p = ggplot(
         bins = n_binsxy,
         drop = TRUE
     ) +
-    scale_fill_gradientn(colours = my_palette) +
+    scale_fill_gradientn(
+        colours = my_palette,
+        guide = guide_colorbar(
+            direction = "vertical",
+            barheight = unit(
+                x = "600",
+                units = "pt"
+            ),
+            draw.ulim = FALSE,
+            title.position = "top",
+            title.hjust = 0.5,
+            label.hjust = 0.5            
+        )
+    ) +
     theme(
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(
+            size = 13
+        ),        
         axis.text.x = element_text(
             size = 14,
             angle = 0,

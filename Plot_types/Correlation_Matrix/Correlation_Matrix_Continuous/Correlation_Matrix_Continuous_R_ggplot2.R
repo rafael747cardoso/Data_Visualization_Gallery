@@ -57,11 +57,29 @@ p = ggplot(
     ) +
     scale_fill_gradientn(
         colors = my_palette(100),
-        na.value = "white"
+        na.value = "white",
+        guide = guide_colorbar(
+            direction = "vertical",
+            barheight = unit(
+                x = "500",
+                units = "pt"
+            ),
+            draw.ulim = FALSE,
+            title.position = "top",
+            title.hjust = 0.5,
+            label.hjust = 0.5            
+        )
     ) +
     scale_x_discrete(labels = num_vars_names) +
     scale_y_discrete(labels = num_vars_names) +
     theme(
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(
+            size = 13
+        ),
         axis.text.x = element_text(
             size = 14,
             angle = 30,

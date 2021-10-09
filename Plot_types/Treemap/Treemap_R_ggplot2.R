@@ -77,8 +77,27 @@ p = ggplot(
         grow = FALSE
     ) +
     geom_treemap_subgroup_border() +
-    scale_fill_viridis_c() +
+    scale_fill_viridis_c(
+        guide = guide_colorbar(
+            direction = "vertical",
+            barheight = unit(
+                x = "600",
+                units = "pt"
+            ),
+            draw.ulim = FALSE,
+            title.position = "top",
+            title.hjust = 0.5,
+            label.hjust = 0.5            
+        ) 
+    ) +
     theme(
+        legend.title = element_text(
+            size = 15,
+            face = "bold"
+        ),
+        legend.text = element_text(
+            size = 13
+        ),
         panel.background = element_rect(fill = "white"),
         plot.margin = margin(
             t = 10,
